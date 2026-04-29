@@ -1,0 +1,75 @@
+/* pages/history-detail/history-detail.wxss */
+.container {
+  padding: 30rpx;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, var(--gold-primary) 0%, transparent 60%);
+  opacity: 0.1;
+  border-radius: 20rpx 0 0 0;
+}
+
+.header {
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+  margin-bottom: 20rpx;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.time {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+.divider {
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
+  margin: 30rpx 0;
+}
+
+.content {
+  padding: 10rpx 0;
+}
+
+.content text {
+  color: var(--text-primary);
+  font-size: 28rpx;
+  line-height: 2;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.actions {
+  margin-top: 40rpx;
+}
+
+.actions button {
+  width: 100%;
+}
+
+.go-back {
+  margin-top: 20rpx;
+}

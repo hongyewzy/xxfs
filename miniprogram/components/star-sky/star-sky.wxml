@@ -1,0 +1,16 @@
+<!--components/star-sky/star-sky.wxml-->
+<view class="star-sky">
+  <!-- 背景光晕 -->
+  <view class="page-glow"></view>
+
+  <!-- 星星 -->
+  <view class="star {{item.size}}"
+    wx:for="{{stars}}"
+    wx:key="id"
+    style="left:{{item.left}};top:{{item.top}};animation-delay:{{item.animationDelay}};animation-duration:{{item.duration}}ms;">
+  </view>
+
+  <!-- 流星 -->
+  <view class="shooting-star {{showShooting[0] ? 'active' : ''}}" style="left:15%;top:20%;"></view>
+  <view class="shooting-star {{showShooting[1] ? 'active delay' : ''}}" style="left:25%;top:35%;"></view>
+</view>

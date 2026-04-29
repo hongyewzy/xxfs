@@ -1,0 +1,157 @@
+// pages/naming/naming.js
+const nameWuge = require('../../utils/name-wuge')
+const aiApi = require('../../utils/ai-api')
+const markdown = require('../../utils/markdown')
+
+// 常用吉祥字
+const GOOD_CHARS = [
+  '明', '华', '文', '建', '国', '海', '强', '志', '伟', '军',
+  '平', '东', '辉', '刚', '永', '成', '飞', '亮', '俊', '浩',
+  '宇', '泽', '豪', '毅', '鑫', '阳', '勇', '杰', '峰', '坤',
+  '婷', '雪', '芳', '敏', '静', '丽', '莉', '琳', '萍', '慧',
+  '颖', '洁', '思', '嘉', '欣', '怡', '雅', '梦', '琪', '佳',
+  '涵', '萱', '蕊', '薇', '馨', '然', '诗', '瑶', '瑜', '妍'
+]
+
+Page({
+  data: {
+    surname: '',
+    nameCount: 2,
+    loading: false,
+    suggestions: [],
+    selectedName: '',
+    analysis: '',
+    parsedAnalysis: '',
+    analysisCards: []
+  },
+
+  onSurnameInput(e) {
+    this.setData({ surname: e.detail.value, suggestions: [], selectedName: '' })
+  },
+
+  selectCount(e) {
+    this.setData({ nameCount: parseInt(e.currentTarget.dataset.count), suggestions: [], selectedName: '' })
+  },
+
+  async generate() {
+    if (!this.data.surname) return
+
+    this.setData({ loading: true, suggestions: [], selectedName: '' })
+
+    try {
+      const suggestions = []
+
+      // 生成候选名字
+      for (let i = 0; i < 10; i++) {
+        let name
+        if (this.data.nameCount === 1) {
+          const char = GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)]
+          name = this.data.surname + char
+        } else {
+          const char1 = GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)]
+          const char2 = GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)]
+          name = this.data.surname + char1 + char2
+        }
+
+        const analysis = nameWuge.analyzeName(name)
+        if (analysis.score >= 70) {
+          suggestions.push({
+            name,
+            score: analysis.score,
+            desc: `${analysis.sancai.config} · ${analysis.sancai.jixiong}`
+          })
+        }
+      }
+
+      // 按分数排序
+      suggestions.sort((a, b) => b.score - a.score)
+      this.setData({ suggestions: suggestions.slice(0, 5) })
+
+    } catch (err) {
+      wx.showToast({ title: '生成失败', icon: 'error' })
+    } finally {
+      this.setData({ loading: false })
+    }
+  },
+
+  async selectName(e) {
+    const name = e.currentTarget.dataset.name
+    this.setData({ selectedName: name, analysis: '分析中...', parsedAnalysis: '', analysisCards: [] })
+
+    try {
+      const analysis = nameWuge.analyzeName(name)
+      const prompt = `请分析名字"${name}"的寓意和五格：
+天格：${analysis.wuge.tianGe.num} 人格：${analysis.wuge.renGe.num} 地格：${analysis.wuge.diGe.num}
+总格：${analysis.wuge.zongGe.num} 三才：${analysis.sancai.config}
+请从寓意、音韵、字形等方面分析这个名字。`
+
+      const result = await aiApi.chat(prompt, 'naming')
+      const parsedResult = markdown.parseMarkdown(result)
+      this.setData({ analysis: result, parsedAnalysis: parsedResult })
+
+      // 解析 AI 结果为卡片数据
+      const analysisCards = this.parseToCards(result)
+      this.setData({ analysisCards })
+
+      const app = getApp()
+      app.saveHistory({
+        type: 'naming',
+        title: name,
+        result,
+        time: Date.now()
+      })
+    } catch (err) {
+      this.setData({ analysis: '分析失败，请重试' })
+    }
+  },
+
+  parseToCards(aiResult) {
+    const cards = []
+    const cardConfigs = [
+      { keyword: '寓意', icon: '📛', title: '名字寓意' },
+      { keyword: '五行', icon: '✨', title: '五行能量' },
+      { keyword: '适合', icon: '🎯', title: '适合方向' }
+    ]
+
+    cardConfigs.forEach((config, index) => {
+      let content = ''
+      const sections = aiResult.split(/^## /m)
+      sections.forEach(section => {
+        if (section.includes(config.keyword)) {
+          content += section + '\n'
+        }
+      })
+
+      if (content) {
+        const firstLine = content.split(/[。！？\n]/)[0]
+        const summary = firstLine ? (firstLine.length > 50 ? firstLine.substring(0, 50) + '...' : firstLine) : '点击查看详情'
+        const contentHtml = markdown.parseMarkdown(content)
+
+        cards.push({
+          id: config.keyword,
+          icon: config.icon,
+          title: config.title,
+          summary: summary,
+          content: contentHtml,
+          expanded: index === 0
+        })
+      }
+    })
+
+    // 如果没有匹配到任何配置，创建一个默认卡片
+    if (cards.length === 0 && aiResult) {
+      const firstLine = aiResult.split(/[。！？\n]/)[0]
+      const summary = firstLine ? (firstLine.length > 50 ? firstLine.substring(0, 50) + '...' : firstLine) : '点击查看详情'
+      cards.push({
+        id: 'default',
+        icon: '📛',
+        title: '名字分析',
+        summary: summary,
+        content: markdown.parseMarkdown(aiResult),
+        expanded: true
+      })
+    }
+
+    return cards
+  }
+})

@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/bazi/bazi",
+    "pages/lunar/lunar",
+    "pages/tarot/tarot",
+    "pages/dream/dream",
+    "pages/name/name",
+    "pages/naming/naming",
+    "pages/meihua/meihua",
+    "pages/history/history",
+    "pages/history-detail/history-detail"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f5f3f0",
+    "navigationBarTitleText": "天机阁",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f3f0",
+    "backgroundTextStyle": "dark"
+  },
+  "usingComponents": {
+    "star-sky": "/components/star-sky/star-sky",
+    "analysis-card": "/components/analysis-card/analysis-card"
+  },
+  "tabBar": {
+    "color": "#7a7a7a",
+    "selectedColor": "#b8962e",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "记录",
+        "iconPath": "images/tab-history.png",
+        "selectedIconPath": "images/tab-history-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

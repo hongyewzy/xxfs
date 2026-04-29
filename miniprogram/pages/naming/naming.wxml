@@ -1,0 +1,46 @@
+<!--pages/naming/naming.wxml-->
+<star-sky />
+<view class="container">
+  <view class="section-title">起名取名</view>
+
+  <view class="card">
+    <view class="card-title">姓氏</view>
+    <input class="input-field" placeholder="请输入姓氏" value="{{surname}}" bindinput="onSurnameInput" maxlength="2" />
+  </view>
+
+  <view class="card">
+    <view class="card-title">名字字数</view>
+    <view class="flex">
+      <view class="count-option {{nameCount === 1 ? 'active' : ''}}" bindtap="selectCount" data-count="1">单字名</view>
+      <view class="count-option {{nameCount === 2 ? 'active' : ''}}" bindtap="selectCount" data-count="2">双字名</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{suggestions.length > 0}}">
+    <view class="card-title">推荐名字</view>
+    <view class="name-list">
+      <view class="name-item" wx:for="{{suggestions}}" wx:key="name" bindtap="selectName" data-name="{{item.name}}">
+        <text class="name-text">{{item.name}}</text>
+        <text class="name-desc">{{item.desc}}</text>
+        <text class="name-score">{{item.score}}分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 名字分析结果 - 折叠卡片形式 -->
+  <view class="analysis-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
+    <analysis-card
+      wx:for="{{analysisCards}}"
+      cardId="{{item.id}}"
+      icon="{{item.icon}}"
+      title="{{item.title}}"
+      summary="{{item.summary}}"
+      content="{{item.content}}"
+      expanded="{{item.expanded}}"
+    />
+  </view>
+
+  <button class="btn-primary mt-30" bindtap="generate" disabled="{{loading || !surname}}">
+    {{loading ? '生成中...' : '生成名字'}}
+  </button>
+</view>

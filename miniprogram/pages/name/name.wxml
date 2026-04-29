@@ -1,0 +1,69 @@
+<!--pages/name/name.wxml-->
+<star-sky />
+<view class="container">
+  <view class="section-title">姓名五格</view>
+
+  <view class="card">
+    <view class="card-title">输入姓名</view>
+    <input class="input-field" placeholder="请输入姓名" value="{{name}}" bindinput="onNameInput" maxlength="10" />
+  </view>
+
+  <button class="btn-primary mt-30" bindtap="analyze" disabled="{{loading || !name}}">
+    {{loading ? '分析中...' : '开始分析'}}
+  </button>
+
+  <view class="result-container" wx:if="{{result}}">
+    <!-- 评分 -->
+    <view class="card score-card">
+      <text class="score-label">综合评分</text>
+      <text class="score-value">{{result.score}}</text>
+      <text class="score-unit">分</text>
+    </view>
+
+    <!-- 笔画 -->
+    <view class="card">
+      <view class="card-title">姓名笔画</view>
+      <view class="strokes-display flex-center">
+        <view class="stroke-item" wx:for="{{result.strokes}}" wx:key="char">
+          <text class="char">{{item.char}}</text>
+          <text class="stroke">{{item.stroke}}画</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 五格 -->
+    <view class="card">
+      <view class="card-title">五格数理</view>
+      <view class="wuge-grid">
+        <view class="wuge-item" wx:for="{{wugeList}}" wx:key="name">
+          <text class="wuge-name">{{item.name}}</text>
+          <text class="wuge-num">{{item.num}}</text>
+          <text class="wuge-wuxing">{{item.wuxing}}</text>
+          <text class="wuge-jixiong {{item.jixiong === '吉' ? 'good' : item.jixiong === '凶' ? 'bad' : ''}}">{{item.jixiong}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 三才 -->
+    <view class="card">
+      <view class="card-title">三才配置</view>
+      <view class="sancai-display flex-center">
+        <text class="sancai-config">{{result.sancai.config}}</text>
+        <text class="sancai-jixiong {{result.sancai.jixiong.includes('吉') ? 'good' : result.sancai.jixiong === '凶' ? 'bad' : ''}}">{{result.sancai.jixiong}}</text>
+      </view>
+    </view>
+
+    <!-- AI 分析结果 - 折叠卡片形式 -->
+    <view class="analysis-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
+      <analysis-card
+        wx:for="{{analysisCards}}"
+        cardId="{{item.id}}"
+        icon="{{item.icon}}"
+        title="{{item.title}}"
+        summary="{{item.summary}}"
+        content="{{item.content}}"
+        expanded="{{item.expanded}}"
+      />
+    </view>
+  </view>
+</view>

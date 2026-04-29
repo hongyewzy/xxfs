@@ -1,0 +1,22 @@
+<!--pages/history-detail/history-detail.wxml-->
+<star-sky />
+<view class="container">
+  <view class="card" wx:if="{{item}}">
+    <view class="header">
+      <view class="title text-gold">{{item.title}}</view>
+      <view class="meta">
+        <text class="tag">{{item.type === 'bazi' ? '八字' : item.type === 'tarot' ? '塔罗' : item.type === 'meihua' ? '梅花' : item.type === 'dream' ? '解梦' : item.type === 'name' ? '姓名' : '其他'}}</text>
+        <text class="time">{{formatDate(item.time)}}</text>
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="content">
+      <rich-text nodes="{{parsedHtml}}"></rich-text>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button class="btn-secondary" bindtap="copyResult">复制内容</button>
+    <button class="btn-primary" bindtap="goBack" style="margin-top:20rpx;">返回</button>
+  </view>
+</view>

@@ -1,0 +1,112 @@
+/* components/star-sky/star-sky.wxss - 晨光星河风格 */
+.star-sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f3f0 50%, #f0ede8 100%);
+}
+
+/* 背景光晕 - 柔和晨光 */
+.page-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    /* 顶部晨光 */
+    radial-gradient(ellipse at 50% 0%, rgba(255, 248, 235, 0.8) 0%, transparent 50%),
+    /* 左下淡金 */
+    radial-gradient(ellipse at 20% 90%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    /* 右下淡蓝 */
+    radial-gradient(ellipse at 80% 80%, rgba(74, 124, 180, 0.06) 0%, transparent 40%);
+}
+
+/* 星星 - 小小星点 */
+.star {
+  position: absolute;
+  border-radius: 50%;
+  animation: twinkle infinite ease-in-out;
+}
+
+/* 大星星 - 金色 */
+.star.large {
+  width: 3rpx;
+  height: 3rpx;
+  background: var(--gold-primary);
+  box-shadow: 0 0 6rpx rgba(184, 150, 46, 0.6);
+}
+
+/* 中星星 - 深灰 */
+.star.medium {
+  width: 2rpx;
+  height: 2rpx;
+  background: #666;
+  box-shadow: 0 0 4rpx rgba(102, 102, 102, 0.4);
+}
+
+/* 小星星 - 浅灰 */
+.star.small {
+  width: 1.5rpx;
+  height: 1.5rpx;
+  background: #999;
+  box-shadow: 0 0 2rpx rgba(153, 153, 153, 0.3);
+}
+
+/* 闪烁动画 */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* 流星 - 淡淡的 */
+.shooting-star {
+  position: absolute;
+  width: 100rpx;
+  height: 1.5rpx;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.3) 30%,
+    rgba(184, 150, 46, 0.6) 50%,
+    rgba(212, 175, 55, 0.3) 70%,
+    transparent 100%
+  );
+  transform: rotate(-45deg);
+  opacity: 0;
+}
+
+.shooting-star.active {
+  animation: shoot 4s ease-in-out infinite;
+}
+
+.shooting-star.delay {
+  animation-delay: 2s;
+}
+
+@keyframes shoot {
+  0% {
+    transform: rotate(-45deg) translateX(-100rpx);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(-45deg) translateX(600rpx);
+    opacity: 0;
+  }
+}

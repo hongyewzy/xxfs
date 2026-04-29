@@ -1,0 +1,27 @@
+<!--pages/dream/dream.wxml-->
+<star-sky />
+<view class="container">
+  <view class="section-title">周公解梦</view>
+
+  <view class="card">
+    <view class="card-title">梦境描述</view>
+    <textarea class="input-area" placeholder="请描述你的梦境内容，越详细越好..." value="{{dreamContent}}" bindinput="onDreamInput" maxlength="500"></textarea>
+  </view>
+
+  <button class="btn-primary mt-30" bindtap="analyze" disabled="{{loading || !dreamContent}}">
+    {{loading ? '解析中...' : '解梦'}}
+  </button>
+
+  <!-- 梦境解析结果 - 折叠卡片形式 -->
+  <view class="analysis-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
+    <analysis-card
+      wx:for="{{analysisCards}}"
+      cardId="{{item.id}}"
+      icon="{{item.icon}}"
+      title="{{item.title}}"
+      summary="{{item.summary}}"
+      content="{{item.content}}"
+      expanded="{{item.expanded}}"
+    />
+  </view>
+</view>

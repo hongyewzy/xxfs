@@ -1,0 +1,181 @@
+/* pages/meihua/meihua.wxss */
+.container {
+  padding-bottom: 120rpx;
+}
+
+/* 起卦方式选择 */
+.method-list {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.method-item {
+  flex: 1;
+  text-align: center;
+  padding: 28rpx 20rpx;
+  background: var(--bg-card);
+  border: 2rpx solid var(--border-gold-light);
+  border-radius: 16rpx;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+}
+
+.method-item.active {
+  background: rgba(201, 162, 39, 0.1);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+  box-shadow: 0 0 20rpx rgba(201, 162, 39, 0.15);
+}
+
+.method-item:active {
+  transform: scale(0.98);
+}
+
+/* 时间输入区域 */
+.time-inputs {
+  display: flex;
+  gap: 20rpx;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.time-input {
+  width: 130rpx;
+  padding: 24rpx 16rpx;
+  text-align: center;
+  background: var(--bg-card);
+  border: 2rpx solid var(--border-gold-light);
+  border-radius: 16rpx;
+  color: var(--text-primary);
+  font-size: 32rpx;
+  transition: all 0.3s ease;
+}
+
+.time-input:focus {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 16rpx rgba(201, 162, 39, 0.15);
+}
+
+.time-input-label {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 12rpx;
+}
+
+/* 数字输入 */
+.number-input-container {
+  margin-bottom: 30rpx;
+}
+
+/* 卦象展示区域 */
+.gua-display {
+  padding: 40rpx 30rpx;
+  background: var(--bg-card);
+  border-radius: 24rpx;
+  border: 1rpx solid var(--border-gold-light);
+  margin-bottom: 30rpx;
+}
+
+.gua-info {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 30rpx;
+  line-height: 1.8;
+}
+
+.gua-name {
+  color: var(--gold-primary);
+  font-weight: 600;
+  font-size: 36rpx;
+  letter-spacing: 4rpx;
+}
+
+/* 爻展示 */
+.yao-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30rpx;
+  padding: 30rpx;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16rpx;
+}
+
+.yao-row {
+  display: flex;
+  align-items: center;
+  margin: 6rpx 0;
+}
+
+.yao-text {
+  font-size: 48rpx;
+  font-family: 'KaiTi', 'STKaiti', serif;
+  letter-spacing: 8rpx;
+  font-weight: 600;
+}
+
+.yao-text.yang {
+  color: var(--gold-primary);
+  text-shadow: 0 0 10rpx rgba(201, 162, 39, 0.5);
+}
+
+.yao-text.yin {
+  color: var(--text-secondary);
+}
+
+.yao-row.dong .yao-text {
+  color: #c41e3a;
+  text-shadow: 0 0 10rpx rgba(196, 30, 58, 0.5);
+}
+
+.yao-name {
+  font-size: 24rpx;
+  color: #c41e3a;
+  margin-left: 20rpx;
+  font-family: 'KaiTi', 'STKaiti', serif;
+}
+
+/* 变爻提示 */
+.bian-yao-hint {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  background: rgba(196, 30, 58, 0.1);
+  border-radius: 12rpx;
+  border: 1rpx solid rgba(196, 30, 58, 0.3);
+  text-align: center;
+  font-size: 26rpx;
+  color: #c41e3a;
+}
+
+/* 结果文本 */
+.result-text {
+  color: var(--text-primary);
+  font-size: 28rpx;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  padding: 30rpx;
+  background: rgba(201, 162, 39, 0.03);
+  border-radius: 16rpx;
+  border-left: 6rpx solid var(--gold-primary);
+}
+
+/* AI解读区域 */
+.ai-result {
+  margin-top: 30rpx;
+}
+
+.ai-result .card-title {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.ai-result .card-title::after {
+  content: '✨';
+  font-size: 28rpx;
+}

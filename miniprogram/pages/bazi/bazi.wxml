@@ -1,0 +1,121 @@
+<!--pages/bazi/bazi.wxml-->
+<star-sky />
+<view class="container">
+  <view class="section-title">八字命理</view>
+
+  <!-- 日期输入 -->
+  <view class="card">
+    <view class="card-title">出生时间</view>
+
+    <!-- 公历/农历切换 -->
+    <view class="calendar-type flex-between mb-30">
+      <text class="label">日期类型</text>
+      <view class="type-switch flex">
+        <view class="switch-item {{isLunar ? '' : 'active'}}" bindtap="switchCalendarType" data-type="solar">公历</view>
+        <view class="switch-item {{isLunar ? 'active' : ''}}" bindtap="switchCalendarType" data-type="lunar">农历</view>
+      </view>
+    </view>
+
+    <!-- 日期选择 -->
+    <picker mode="date" value="{{solarDate}}" bindchange="onDateChange" wx:if="{{!isLunar}}">
+      <view class="picker-field">
+        <text class="{{solarDate ? 'value' : 'placeholder'}}">{{solarDate || '请选择公历日期'}}</text>
+        <text class="arrow">▼</text>
+      </view>
+    </picker>
+
+    <view class="lunar-picker" wx:else>
+      <view class="flex-between mb-20">
+        <picker mode="selector" range="{{lunarYears}}" value="{{lunarYearIndex}}" bindchange="onLunarYearChange">
+          <view class="picker-field flex-1 mr-20">
+            <text class="value">{{lunarYears[lunarYearIndex]}}年</text>
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+        <picker mode="selector" range="{{lunarMonths}}" value="{{lunarMonthIndex}}" bindchange="onLunarMonthChange">
+          <view class="picker-field flex-1">
+            <text class="value">{{lunarMonths[lunarMonthIndex]}}</text>
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+      <picker mode="selector" range="{{lunarDays}}" value="{{lunarDayIndex}}" bindchange="onLunarDayChange">
+        <view class="picker-field">
+          <text class="value">{{lunarDays[lunarDayIndex]}}</text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 时辰选择 -->
+    <view class="mt-30">
+      <text class="label mb-20 block">出生时辰</text>
+      <picker mode="selector" range="{{hours}}" value="{{hourIndex}}" bindchange="onHourChange">
+        <view class="picker-field">
+          <text class="value">{{hours[hourIndex]}}</text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 开始分析按钮 -->
+  <button class="btn-primary mt-30" bindtap="analyze" disabled="{{loading}}">
+    {{loading ? '分析中...' : '开始分析'}}
+  </button>
+
+  <!-- 八字结果 -->
+  <view class="result-container" wx:if="{{result}}">
+    <!-- 四柱展示 -->
+    <view class="card">
+      <view class="card-title">四柱八字</view>
+      <view class="bazi-display flex-between">
+        <view class="bazi-pillar">
+          <text class="gan">{{result.yearGan}}</text>
+          <text class="zhi">{{result.yearZhi}}</text>
+          <text class="label">年柱</text>
+        </view>
+        <view class="bazi-pillar">
+          <text class="gan">{{result.monthGan}}</text>
+          <text class="zhi">{{result.monthZhi}}</text>
+          <text class="label">月柱</text>
+        </view>
+        <view class="bazi-pillar">
+          <text class="gan">{{result.dayGan}}</text>
+          <text class="zhi">{{result.dayZhi}}</text>
+          <text class="label">日柱</text>
+        </view>
+        <view class="bazi-pillar">
+          <text class="gan">{{result.hourGan}}</text>
+          <text class="zhi">{{result.hourZhi}}</text>
+          <text class="label">时柱</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 五行分析 -->
+    <view class="card">
+      <view class="card-title">五行配置</view>
+      <view class="wuxing-display flex-center flex-wrap">
+        <view class="wuxing-item" wx:for="{{result.wuxingList}}" wx:key="name">
+          <view class="wuxing-tag {{item.type}}">{{item.name}}</view>
+          <text class="count">{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- AI 解读 - 折叠卡片形式 -->
+    <view class="analysis-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
+      <analysis-card
+        wx:for="{{analysisCards}}"
+        cardId="{{item.id}}"
+        icon="{{item.icon}}"
+        title="{{item.title}}"
+        summary="{{item.summary}}"
+        content="{{item.content}}"
+        expanded="{{item.expanded}}"
+        showCopy="{{true}}"
+      />
+    </view>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<!--pages/history/history.wxml-->
+<star-sky />
+<view class="container">
+  <!-- 筛选 -->
+  <view class="filter-bar flex">
+    <view class="filter-item {{filterType === 'all' ? 'active' : ''}}" bindtap="filterByType" data-type="all">全部</view>
+    <view class="filter-item {{filterType === 'bazi' ? 'active' : ''}}" bindtap="filterByType" data-type="bazi">八字</view>
+    <view class="filter-item {{filterType === 'tarot' ? 'active' : ''}}" bindtap="filterByType" data-type="tarot">塔罗</view>
+    <view class="filter-item {{filterType === 'meihua' ? 'active' : ''}}" bindtap="filterByType" data-type="meihua">梅花</view>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="history-list" wx:if="{{history.length > 0}}">
+    <view class="history-item card" wx:for="{{history}}" wx:key="time" wx:if="{{filterType === 'all' || filterType === item.type}}">
+      <view class="item-header flex-between">
+        <view class="item-title text-gold">{{item.title}}</view>
+        <view class="item-time">{{item.dateStr}}</view>
+      </view>
+      <view class="item-type">
+        <text class="tag">{{item.type === 'bazi' ? '八字' : item.type === 'tarot' ? '塔罗' : item.type === 'meihua' ? '梅花' : item.type === 'dream' ? '解梦' : item.type === 'name' ? '姓名' : '其他'}}</text>
+      </view>
+      <view class="item-result">{{item.result}}</view>
+      <view class="item-actions flex">
+        <view class="action-btn" bindtap="viewDetail" data-item="{{item}}">查看详情</view>
+        <view class="action-btn delete" bindtap="deleteItem" data-index="{{index}}">删除</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">📜</text>
+    <text class="empty-text">暂无历史记录</text>
+  </view>
+
+  <!-- 清空按钮 -->
+  <button class="btn-secondary mt-30" bindtap="clearAll" wx:if="{{history.length > 0}}" style="width:100%;margin-top:40rpx;">清空所有记录</button>
+</view>

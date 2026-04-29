@@ -1,0 +1,70 @@
+<!--pages/lunar/lunar.wxml-->
+<star-sky />
+<view class="container">
+  <view class="section-title">农历查询</view>
+
+  <!-- 日期输入 -->
+  <view class="card">
+    <view class="card-title">选择日期</view>
+
+    <picker mode="date" value="{{solarDate}}" bindchange="onDateChange">
+      <view class="picker-field">
+        <text class="value">{{solarDate}}</text>
+        <text class="arrow">▼</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 查询结果 -->
+  <view class="result-container" wx:if="{{result}}">
+    <!-- 农历信息 -->
+    <view class="card">
+      <view class="card-title">农历信息</view>
+      <view class="info-grid">
+        <view class="info-item">
+          <text class="info-label">农历</text>
+          <text class="info-value">{{result.lunarYear}}年 {{result.lunarMonth}}月 {{result.lunarDay}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">干支</text>
+          <text class="info-value">{{result.ganzhi}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">生肖</text>
+          <text class="info-value gold">{{result.animal}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">星座</text>
+          <text class="info-value">{{result.constellation}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 节气 -->
+    <view class="card">
+      <view class="card-title">节气</view>
+      <view class="info-grid">
+        <view class="info-item">
+          <text class="info-label">当前节气</text>
+          <text class="info-value">{{result.currentTerm}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">下一节气</text>
+          <text class="info-value">{{result.nextTerm}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 四柱 -->
+    <view class="card">
+      <view class="card-title">时辰四柱</view>
+      <view class="bazi-display flex-between">
+        <view class="bazi-pillar" wx:for="{{result.pillars}}" wx:key="label">
+          <text class="gan">{{item.gan}}</text>
+          <text class="zhi">{{item.zhi}}</text>
+          <text class="label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

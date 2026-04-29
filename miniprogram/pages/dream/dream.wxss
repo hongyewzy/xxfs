@@ -1,0 +1,19 @@
+/* pages/dream/dream.wxss */
+.input-area {
+  width: 100%;
+  min-height: 200rpx;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2rpx solid var(--border-gold);
+  border-radius: 12rpx;
+  padding: 24rpx;
+  color: var(--text-primary);
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.result-text {
+  color: var(--text-primary);
+  font-size: 28rpx;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}

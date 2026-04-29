@@ -1,0 +1,70 @@
+<!--pages/tarot/tarot.wxml-->
+<star-sky />
+<view class="container">
+  <view class="section-title">塔罗占卜</view>
+
+  <!-- 问题输入 -->
+  <view class="card">
+    <view class="card-title">你的问题</view>
+    <textarea class="input-area" placeholder="请输入你想问的问题..." value="{{question}}" bindinput="onQuestionInput" maxlength="200"></textarea>
+  </view>
+
+  <!-- 牌阵选择 -->
+  <view class="card">
+    <view class="card-title">选择牌阵</view>
+    <view class="spread-list">
+      <view class="spread-item {{currentSpread === 1 ? 'active' : ''}}" bindtap="selectSpread" data-spread="1">
+        <text class="spread-name">单张牌</text>
+        <text class="spread-desc">简单直接</text>
+      </view>
+      <view class="spread-item {{currentSpread === 3 ? 'active' : ''}}" bindtap="selectSpread" data-spread="3">
+        <text class="spread-name">三牌阵</text>
+        <text class="spread-desc">过去/现在/未来</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 抽牌按钮 -->
+  <button class="btn-primary mt-30" bindtap="drawCards" disabled="{{loading || drawn}}">
+    {{drawn ? '已抽牌' : '开始抽牌'}}
+  </button>
+
+  <!-- 牌面展示 -->
+  <view class="cards-container" wx:if="{{drawnCards.length > 0}}">
+    <view class="card">
+      <view class="card-title">抽到的牌</view>
+      <view class="tarot-cards flex-center">
+        <view class="tarot-card-wrapper" wx:for="{{drawnCards}}" wx:key="index" style="animation-delay: {{index * 0.2}}s">
+          <view class="tarot-card {{flipped ? 'flipped' : ''}}" bindtap="flipCard">
+            <view class="tarot-card-back">
+              <text class="card-symbol">✦</text>
+            </view>
+            <view class="tarot-card-front">
+              <text class="card-name">{{item.name}}</text>
+              <text class="card-position">{{item.isReversed ? '逆位' : '正位'}}</text>
+            </view>
+          </view>
+          <text class="card-label" wx:if="{{currentSpread === 3}}">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI 解读结果 - 折叠卡片形式 -->
+  <view class="analysis-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
+    <analysis-card
+      wx:for="{{analysisCards}}"
+      cardId="{{item.id}}"
+      icon="{{item.icon}}"
+      title="{{item.title}}"
+      summary="{{item.summary}}"
+      content="{{item.content}}"
+      expanded="{{item.expanded}}"
+    />
+  </view>
+
+  <!-- 重新抽牌 -->
+  <button class="btn-secondary mt-30" bindtap="reset" wx:if="{{drawn}}">
+    重新抽牌
+  </button>
+</view>

@@ -1,0 +1,55 @@
+<!--pages/index/index.wxml-->
+<star-sky />
+<view class="container">
+  <!-- 顶部标题 -->
+  <view class="header">
+    <view class="logo-container">
+      <text class="logo-text">天机阁</text>
+      <text class="logo-subtitle">星空下探寻命理奥秘</text>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="section">
+    <view class="section-title">占卜测算</view>
+    <view class="function-grid">
+      <view class="function-item" bindtap="navigateTo" data-url="/pages/bazi/bazi">
+        <view class="icon bazi-icon">命</view>
+        <text class="name">八字命理</text>
+      </view>
+      <view class="function-item" bindtap="navigateTo" data-url="/pages/tarot/tarot">
+        <view class="icon tarot-icon">塔</view>
+        <text class="name">塔罗占卜</text>
+      </view>
+      <view class="function-item" bindtap="navigateTo" data-url="/pages/meihua/meihua">
+        <view class="icon meihua-icon">卦</view>
+        <text class="name">梅花易数</text>
+      </view>
+      <view class="function-item" bindtap="navigateTo" data-url="/pages/dream/dream">
+        <view class="icon dream-icon">梦</view>
+        <text class="name">周公解梦</text>
+      </view>
+      <view class="function-item" bindtap="navigateTo" data-url="/pages/name/name">
+        <view class="icon name-icon">名</view>
+        <text class="name">姓名五格</text>
+      </view>
+      <view class="function-item" bindtap="navigateTo" data-url="/pages/naming/naming">
+        <view class="icon naming-icon">字</view>
+        <text class="name">起名取名</text>
+      </view>
+      <view class="function-item" bindtap="navigateTo" data-url="/pages/lunar/lunar">
+        <view class="icon lunar-icon">历</view>
+        <text class="name">农历查询</text>
+      </view>
+      <view class="function-item" bindtap="navigateTo" data-url="/pages/history/history">
+        <view class="icon history-icon">史</view>
+        <text class="name">历史记录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部说明 -->
+  <view class="footer">
+    <text class="footer-text">仅供娱乐参考，请勿迷信</text>
+  </view>
+</view>

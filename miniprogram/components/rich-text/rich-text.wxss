@@ -1,0 +1,81 @@
+/* components/rich-text/rich-text.wxss */
+.rich-content {
+  color: var(--text-primary);
+  font-size: 28rpx;
+  line-height: 1.9;
+}
+
+.rich-content h1 {
+  font-size: 36rpx;
+  color: var(--gold-primary);
+  margin: 30rpx 0 20rpx;
+  font-weight: 600;
+  border-bottom: 1rpx solid var(--border-gold-light);
+  padding-bottom: 16rpx;
+}
+
+.rich-content h2 {
+  font-size: 32rpx;
+  color: var(--gold-primary);
+  margin: 28rpx 0 16rpx;
+  font-weight: 600;
+}
+
+.rich-content h3 {
+  font-size: 30rpx;
+  color: var(--gold-light);
+  margin: 24rpx 0 12rpx;
+  font-weight: 500;
+}
+
+.rich-content p {
+  margin: 16rpx 0;
+  text-align: justify;
+}
+
+.rich-content strong {
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+.rich-content em {
+  color: var(--text-secondary);
+}
+
+.rich-content del {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.rich-content code.inline-code {
+  background: rgba(201, 162, 39, 0.15);
+  color: var(--gold-light);
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  font-family: monospace;
+  font-size: 26rpx;
+}
+
+.rich-content ul,
+.rich-content ol {
+  margin: 16rpx 0;
+  padding-left: 40rpx;
+}
+
+.rich-content li {
+  margin: 10rpx 0;
+  color: var(--text-secondary);
+}
+
+.rich-content hr.divider {
+  border: none;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  margin: 30rpx 0;
+}
+
+.rich-content br {
+  content: '';
+  display: block;
+  height: 16rpx;
+}

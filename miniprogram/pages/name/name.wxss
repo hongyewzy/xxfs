@@ -1,0 +1,133 @@
+/* pages/name/name.wxss */
+.score-card {
+  text-align: center;
+  padding: 40rpx;
+}
+
+.score-label {
+  font-size: 28rpx;
+  color: var(--text-muted);
+}
+
+.score-value {
+  font-size: 80rpx;
+  color: var(--gold-primary);
+  font-weight: 600;
+  margin: 10rpx 20rpx;
+}
+
+.score-unit {
+  font-size: 28rpx;
+  color: var(--text-muted);
+}
+
+.strokes-display {
+  gap: 40rpx;
+  padding: 20rpx 0;
+}
+
+.stroke-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stroke-item .char {
+  font-size: 48rpx;
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+.stroke-item .stroke {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  margin-top: 10rpx;
+}
+
+.wuge-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.wuge-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8rpx;
+}
+
+.wuge-name {
+  width: 80rpx;
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.wuge-num {
+  flex: 1;
+  font-size: 32rpx;
+  color: var(--gold-primary);
+  font-weight: 600;
+  text-align: center;
+}
+
+.wuge-wuxing {
+  width: 60rpx;
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.wuge-jixiong {
+  width: 60rpx;
+  font-size: 24rpx;
+  text-align: center;
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.wuge-jixiong.good {
+  background: rgba(34, 139, 34, 0.2);
+  color: #228b22;
+}
+
+.wuge-jixiong.bad {
+  background: rgba(220, 20, 60, 0.2);
+  color: #dc143c;
+}
+
+.sancai-display {
+  gap: 20rpx;
+  padding: 20rpx 0;
+}
+
+.sancai-config {
+  font-size: 32rpx;
+  color: var(--text-primary);
+}
+
+.sancai-jixiong {
+  font-size: 28rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 6rpx;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sancai-jixiong.good {
+  background: rgba(34, 139, 34, 0.2);
+  color: #228b22;
+}
+
+.sancai-jixiong.bad {
+  background: rgba(220, 20, 60, 0.2);
+  color: #dc143c;
+}
+
+.result-text {
+  color: var(--text-primary);
+  font-size: 28rpx;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}

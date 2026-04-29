@@ -1,0 +1,2 @@
+<!--components/rich-text/rich-text.wxml-->
+<rich-text nodes="{{parsedHtml}}" class="rich-content"></rich-text>

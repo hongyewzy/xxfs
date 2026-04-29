@@ -1,0 +1,83 @@
+<!--pages/meihua/meihua.wxml-->
+<star-sky />
+<view class="container">
+  <view class="section-title">梅花易数</view>
+
+  <!-- 起卦方式 -->
+  <view class="card">
+    <view class="card-title">起卦方式</view>
+    <view class="method-list flex">
+      <view class="method-item {{mode === 'time' ? 'active' : ''}}" bindtap="switchMode" data-mode="time">时间起卦</view>
+      <view class="method-item {{mode === 'number' ? 'active' : ''}}" bindtap="switchMode" data-mode="number">数字起卦</view>
+    </view>
+  </view>
+
+  <!-- 时间起卦 -->
+  <view class="card" wx:if="{{mode === 'time'}}">
+    <view class="card-title">输入时间</view>
+    <view class="time-inputs flex flex-wrap">
+      <input class="time-input" type="number" placeholder="年" value="{{year}}" bindinput="onYearInput" />
+      <input class="time-input" type="number" placeholder="月" value="{{month}}" bindinput="onMonthInput" />
+      <input class="time-input" type="number" placeholder="日" value="{{day}}" bindinput="onDayInput" />
+      <input class="time-input" type="number" placeholder="时" value="{{hour}}" bindinput="onHourInput" />
+    </view>
+  </view>
+
+  <!-- 数字起卦 -->
+  <view class="card" wx:if="{{mode === 'number'}}">
+    <view class="card-title">输入数字</view>
+    <view class="number-inputs flex">
+      <input class="time-input flex-1" type="number" placeholder="数字1" value="{{number1}}" bindinput="onNumber1Input" />
+      <input class="time-input flex-1 ml-20" type="number" placeholder="数字2（可选）" value="{{number2}}" bindinput="onNumber2Input" />
+    </view>
+  </view>
+
+  <button class="btn-primary mt-30" bindtap="divinate" disabled="{{loading}}">
+    {{loading ? '起卦中...' : '起卦'}}
+  </button>
+
+  <!-- 卦象结果 -->
+  <view class="result-container" wx:if="{{result}}">
+    <!-- 本卦 -->
+    <view class="card">
+      <view class="card-title">本卦：{{result.originalGua.name}}</view>
+      <view class="gua-display">
+        <view class="gua-info mb-20">
+          <text>上卦：{{result.upperGua}}</text>
+          <text class="ml-20">下卦：{{result.lowerGua}}</text>
+          <text class="ml-20 text-gold">动爻：{{result.dongYao}}</text>
+        </view>
+        <view class="yao-display">
+          <view class="yao-row {{item.isDong ? 'dong' : ''}}" wx:for="{{result.yaoInfo}}" wx:key="name">
+            <text class="yao-text {{item.isYang ? 'yang' : 'yin'}}">{{item.display}}</text>
+            <text class="yao-name" wx:if="{{item.isDong}}">○动</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 变卦 -->
+    <view class="card">
+      <view class="card-title">变卦：{{result.changedGua.name}}</view>
+      <view class="gua-info">
+        <text>上卦：{{result.changedGua.upper}}</text>
+        <text class="ml-20">下卦：{{result.changedGua.lower}}</text>
+      </view>
+    </view>
+
+    <!-- AI 解读结果 - 折叠卡片形式 -->
+    <view class="analysis-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
+      <analysis-card
+        wx:for="{{analysisCards}}"
+        cardId="{{item.id}}"
+        icon="{{item.icon}}"
+        title="{{item.title}}"
+        summary="{{item.summary}}"
+        content="{{item.content}}"
+        expanded="{{item.expanded}}"
+      />
+    </view>
+
+    <button class="btn-secondary mt-30" bindtap="reset">重新起卦</button>
+  </view>
+</view>

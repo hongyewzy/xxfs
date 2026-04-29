@@ -1,0 +1,250 @@
+/* pages/index/index.wxss - 晨光星河天机阁风格 */
+.container {
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+  position: relative;
+}
+
+/* 顶部区域 */
+.header {
+  padding: 100rpx 30rpx 60rpx;
+  text-align: center;
+  position: relative;
+}
+
+/* 标题光晕 */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500rpx;
+  height: 200rpx;
+  background: radial-gradient(ellipse at center, rgba(184, 150, 46, 0.1) 0%, rgba(255, 248, 235, 0.5) 50%, transparent 80%);
+  pointer-events: none;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* 主标题 - 金色渐变 */
+.logo-text {
+  font-size: 68rpx;
+  font-weight: 700;
+  letter-spacing: 12rpx;
+  background: linear-gradient(180deg, #d4af37 0%, #b8962e 40%, #8b7020 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+/* 标题两侧装饰 */
+.logo-text::before,
+.logo-text::after {
+  content: '✧';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24rpx;
+  color: rgba(184, 150, 46, 0.6);
+  -webkit-text-fill-color: rgba(184, 150, 46, 0.6);
+}
+
+.logo-text::before {
+  left: -50rpx;
+}
+
+.logo-text::after {
+  right: -50rpx;
+}
+
+/* 副标题 */
+.logo-subtitle {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  margin-top: 24rpx;
+  letter-spacing: 8rpx;
+  font-weight: 300;
+}
+
+.logo-subtitle::before,
+.logo-subtitle::after {
+  content: '◆';
+  font-size: 10rpx;
+  margin: 0 16rpx;
+  color: var(--gold-primary);
+  opacity: 0.4;
+  vertical-align: middle;
+}
+
+.section {
+  margin-top: 40rpx;
+  padding: 0 20rpx;
+}
+
+.section-title {
+  font-size: 20rpx;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 36rpx;
+  letter-spacing: 8rpx;
+  text-transform: uppercase;
+  font-weight: 300;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.section-title::before,
+.section-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 100rpx;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, rgba(184, 150, 46, 0.2), transparent);
+}
+
+.section-title::before {
+  right: calc(50% + 60rpx);
+}
+
+.section-title::after {
+  left: calc(50% + 60rpx);
+}
+
+/* 功能网格 */
+.function-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16rpx;
+  padding: 0 16rpx;
+}
+
+/* 功能卡片 - 浅色卡片 */
+.function-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 12rpx;
+  background: #ffffff;
+  border-radius: 20rpx;
+  border: 1rpx solid rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.function-item:active {
+  transform: scale(0.95);
+  border-color: var(--gold-primary);
+  box-shadow: 0 4rpx 16rpx rgba(184, 150, 46, 0.2);
+}
+
+/* 功能图标 */
+.function-item .icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+  border: 2rpx solid;
+  background: rgba(184, 150, 46, 0.08);
+}
+
+/* 八字 - 金色 */
+.bazi-icon {
+  color: #b8962e;
+  border-color: rgba(184, 150, 46, 0.4);
+}
+
+/* 塔罗 - 蓝色 */
+.tarot-icon {
+  color: #4a7cb4;
+  border-color: rgba(74, 124, 180, 0.4);
+  background: rgba(74, 124, 180, 0.08);
+}
+
+/* 梅花 - 绿色 */
+.meihua-icon {
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.4);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+/* 梦境 - 天蓝 */
+.dream-icon {
+  color: #0ea5e9;
+  border-color: rgba(14, 165, 233, 0.4);
+  background: rgba(14, 165, 233, 0.08);
+}
+
+/* 姓名 - 橙色 */
+.name-icon {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+/* 起名 - 橙红 */
+.naming-icon {
+  color: #ea580c;
+  border-color: rgba(234, 88, 12, 0.4);
+  background: rgba(234, 88, 12, 0.08);
+}
+
+/* 农历 - 青绿 */
+.lunar-icon {
+  color: #14b8a6;
+  border-color: rgba(20, 184, 166, 0.4);
+  background: rgba(20, 184, 166, 0.08);
+}
+
+/* 历史 - 灰色 */
+.history-icon {
+  color: #6b7280;
+  border-color: rgba(107, 114, 128, 0.4);
+  background: rgba(107, 114, 128, 0.08);
+}
+
+.function-item .name {
+  font-size: 22rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+  letter-spacing: 1rpx;
+}
+
+/* 底部 */
+.footer {
+  text-align: center;
+  padding: 80rpx 30rpx 40rpx;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150rpx;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, rgba(184, 150, 46, 0.2), transparent);
+}
+
+.footer-text {
+  font-size: 22rpx;
+  color: var(--text-muted);
+  letter-spacing: 2rpx;
+}
