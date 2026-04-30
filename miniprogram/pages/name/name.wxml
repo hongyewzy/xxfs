@@ -1,6 +1,5 @@
 <!--pages/name/name.wxml-->
 <star-sky />
-<loading-progress show="{{loading}}" text="正在分析姓名五格..." icon="🔤" />
 <view class="container">
   <view class="section-title">姓名五格</view>
 
@@ -9,6 +8,7 @@
     <input class="input-field" placeholder="请输入姓名" value="{{name}}" bindinput="onNameInput" maxlength="10" />
   </view>
 
+  <loading-progress show="{{loading}}" text="正在分析姓名五格..." icon="🔤" />
   <button class="btn-primary mt-30" bindtap="analyze" disabled="{{loading || !name}}">
     {{loading ? '分析中...' : '开始分析'}}
   </button>

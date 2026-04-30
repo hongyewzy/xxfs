@@ -1,16 +1,15 @@
 <!-- components/loading-progress/loading-progress.wxml -->
 <view class="loading-progress" wx:if="{{show}}">
-  <view class="progress-overlay">
-    <view class="progress-content">
-      <view class="progress-icon">
-        <text class="icon-text">{{icon}}</text>
+  <view class="progress-content">
+    <view class="progress-icon">
+      <text class="icon-text">{{icon}}</text>
+    </view>
+    <view class="progress-bar-wrap">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{percent}}%;"></view>
       </view>
-      <view class="progress-bar-wrap">
-        <view class="progress-bar">
-          <view class="progress-fill" style="width: {{percent}}%;"></view>
-        </view>
-        <text class="progress-text">{{text}}</text>
-      </view>
+      <text class="progress-text">{{text}}</text>
+      <text class="progress-hint" wx:if="{{showHint}}">AI 正在努力推算中，请耐心等待...</text>
     </view>
   </view>
 </view>

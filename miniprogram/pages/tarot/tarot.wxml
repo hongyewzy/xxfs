@@ -1,6 +1,5 @@
 <!--pages/tarot/tarot.wxml-->
 <star-sky />
-<loading-progress show="{{loading}}" text="正在解读塔罗牌面..." icon="🔮" />
 <view class="container">
   <view class="section-title">塔罗占卜</view>
 
@@ -26,6 +25,7 @@
   </view>
 
   <!-- 抽牌按钮 -->
+  <loading-progress show="{{loading}}" text="正在解读塔罗牌面..." icon="🔮" />
   <button class="btn-primary mt-30" bindtap="drawCards" disabled="{{loading || drawn}}">
     {{drawn ? '已抽牌' : '开始抽牌'}}
   </button>

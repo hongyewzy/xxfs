@@ -1,6 +1,5 @@
 <!--pages/naming/naming.wxml-->
 <star-sky />
-<loading-progress show="{{loading}}" text="正在推算吉祥好名..." icon="💡" />
 <view class="container">
   <view class="section-title">起名取名</view>
 
@@ -16,6 +15,11 @@
       <view class="count-option {{nameCount === 2 ? 'active' : ''}}" bindtap="selectCount" data-count="2">双字名</view>
     </view>
   </view>
+
+  <loading-progress show="{{loading}}" text="正在推算吉祥好名..." icon="💡" />
+  <button class="btn-primary mt-30" bindtap="generate" disabled="{{loading || !surname}}">
+    {{loading ? '生成中...' : '生成名字'}}
+  </button>
 
   <view class="card" wx:if="{{suggestions.length > 0}}">
     <view class="card-title">推荐名字</view>
@@ -37,8 +41,4 @@
       card="{{item}}"
     />
   </view>
-
-  <button class="btn-primary mt-30" bindtap="generate" disabled="{{loading || !surname}}">
-    {{loading ? '生成中...' : '生成名字'}}
-  </button>
 </view>

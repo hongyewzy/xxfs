@@ -15,12 +15,13 @@ Component({
     },
     duration: {
       type: Number,
-      value: 8000
+      value: 30000 // 30秒内进度到90%
     }
   },
 
   data: {
-    percent: 0
+    percent: 0,
+    showHint: false
   },
 
   observers: {
@@ -36,7 +37,7 @@ Component({
   methods: {
     startProgress() {
       this.stopProgress()
-      this.setData({ percent: 0 })
+      this.setData({ percent: 0, showHint: false })
 
       const duration = this.properties.duration
       const interval = 100
@@ -50,6 +51,11 @@ Component({
           this.stopProgress()
         }
         this.setData({ percent })
+
+        // 超过10秒显示提示
+        if (this.data.percent > 30 && !this.data.showHint) {
+          this.setData({ showHint: true })
+        }
       }, interval)
     },
 
@@ -61,7 +67,7 @@ Component({
     },
 
     complete() {
-      this.setData({ percent: 100 })
+      this.setData({ percent: 100, showHint: false })
       setTimeout(() => {
         this.stopProgress()
       }, 300)

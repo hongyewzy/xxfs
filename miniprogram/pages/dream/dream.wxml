@@ -1,6 +1,5 @@
 <!--pages/dream/dream.wxml-->
 <star-sky />
-<loading-progress show="{{loading}}" text="正在解析梦境寓意..." icon="🌙" />
 <view class="container">
   <view class="section-title">周公解梦</view>
 
@@ -9,6 +8,7 @@
     <textarea class="input-area" placeholder="请描述你的梦境内容，越详细越好..." value="{{dreamContent}}" bindinput="onDreamInput" maxlength="500"></textarea>
   </view>
 
+  <loading-progress show="{{loading}}" text="正在解析梦境寓意..." icon="🌙" />
   <button class="btn-primary mt-30" bindtap="analyze" disabled="{{loading || !dreamContent}}">
     {{loading ? '解析中...' : '解梦'}}
   </button>

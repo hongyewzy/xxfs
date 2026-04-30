@@ -1,6 +1,5 @@
 <!--pages/bazi/bazi.wxml-->
 <star-sky />
-<loading-progress show="{{loading}}" text="正在推算八字命盘..." icon="☯" />
 <view class="container">
   <view class="section-title">八字命理</view>
 
@@ -61,6 +60,7 @@
   </view>
 
   <!-- 开始分析按钮 -->
+  <loading-progress show="{{loading}}" text="正在推算八字命盘..." icon="☯" />
   <button class="btn-primary mt-30" bindtap="analyze" disabled="{{loading}}">
     {{loading ? '分析中...' : '开始分析'}}
   </button>
