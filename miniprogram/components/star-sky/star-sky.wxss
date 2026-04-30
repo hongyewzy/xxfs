@@ -1,4 +1,4 @@
-/* components/star-sky/star-sky.wxss - 晨光星河风格 */
+/* components/star-sky/star-sky.wxss - 浅金色星空风格 */
 .star-sky {
   position: fixed;
   top: 0;
@@ -8,10 +8,10 @@
   pointer-events: none;
   z-index: -1;
   overflow: hidden;
-  background: linear-gradient(180deg, #faf9f7 0%, #f5f3f0 50%, #f0ede8 100%);
+  background: linear-gradient(180deg, #FDF6E3 0%, #F8EFD0 50%, #F5E6C8 100%);
 }
 
-/* 背景光晕 - 柔和晨光 */
+/* 背景光晕 - 浅金色 */
 .page-glow {
   position: absolute;
   top: 0;
@@ -19,12 +19,12 @@
   right: 0;
   bottom: 0;
   background:
-    /* 顶部晨光 */
-    radial-gradient(ellipse at 50% 0%, rgba(255, 248, 235, 0.8) 0%, transparent 50%),
+    /* 顶部浅金 */
+    radial-gradient(ellipse at 50% 0%, rgba(255, 250, 240, 0.9) 0%, transparent 50%),
     /* 左下淡金 */
-    radial-gradient(ellipse at 20% 90%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
-    /* 右下淡蓝 */
-    radial-gradient(ellipse at 80% 80%, rgba(74, 124, 180, 0.06) 0%, transparent 40%);
+    radial-gradient(ellipse at 20% 90%, rgba(212, 175, 55, 0.12) 0%, transparent 40%),
+    /* 右下暖色 */
+    radial-gradient(ellipse at 80% 80%, rgba(245, 230, 200, 0.15) 0%, transparent 40%);
 }
 
 /* 星星 - 小小星点 */
@@ -38,24 +38,24 @@
 .star.large {
   width: 3rpx;
   height: 3rpx;
-  background: var(--gold-primary);
-  box-shadow: 0 0 6rpx rgba(184, 150, 46, 0.6);
+  background: #D4A84B;
+  box-shadow: 0 0 6rpx rgba(212, 168, 75, 0.6);
 }
 
-/* 中星星 - 深灰 */
+/* 中星星 - 金色 */
 .star.medium {
   width: 2rpx;
   height: 2rpx;
-  background: #666;
-  box-shadow: 0 0 4rpx rgba(102, 102, 102, 0.4);
+  background: #B8962E;
+  box-shadow: 0 0 4rpx rgba(184, 150, 46, 0.4);
 }
 
-/* 小星星 - 浅灰 */
+/* 小星星 - 浅金色 */
 .star.small {
   width: 1.5rpx;
   height: 1.5rpx;
-  background: #999;
-  box-shadow: 0 0 2rpx rgba(153, 153, 153, 0.3);
+  background: #C9A962;
+  box-shadow: 0 0 2rpx rgba(201, 169, 98, 0.3);
 }
 
 /* 闪烁动画 */
@@ -70,16 +70,16 @@
   }
 }
 
-/* 流星 - 淡淡的 */
+/* 流星 - 浅金色 */
 .shooting-star {
   position: absolute;
   width: 100rpx;
-  height: 1.5rpx;
+  height: 2rpx;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(212, 175, 55, 0.3) 30%,
-    rgba(184, 150, 46, 0.6) 50%,
-    rgba(212, 175, 55, 0.3) 70%,
+    rgba(212, 175, 55, 0.4) 30%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(212, 175, 55, 0.4) 70%,
     transparent 100%
   );
   transform: rotate(-45deg);

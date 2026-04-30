@@ -181,3 +181,55 @@
   color: var(--gold-primary);
   font-size: 24rpx;
 }
+
+/* 四柱/五行解释样式 */
+.pillar-explain,
+.wuxing-explain {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 20rpx 0;
+}
+
+.explain-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 20rpx;
+  background: #FAFAFA;
+  border-radius: 16rpx;
+}
+
+.explain-label {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #B8962E;
+  width: 100rpx;
+  flex-shrink: 0;
+}
+
+.explain-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.8;
+  flex: 1;
+}
+
+.wuxing-tag {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #FFF;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.wuxing-tag.jin { background: linear-gradient(135deg, #D4A84B, #B8962E); }
+.wuxing-tag.mu { background: linear-gradient(135deg, #34D399, #10B981); }
+.wuxing-tag.shui { background: linear-gradient(135deg, #60A5FA, #3B82F6); }
+.wuxing-tag.huo { background: linear-gradient(135deg, #F87171, #EF4444); }
+.wuxing-tag.tu { background: linear-gradient(135deg, #FBBF24, #F59E0B); }

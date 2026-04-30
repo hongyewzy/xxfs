@@ -5,7 +5,62 @@
   <view class="header">
     <view class="logo-container">
       <text class="logo-text">天机阁</text>
-      <text class="logo-subtitle">星空下探寻命理奥秘</text>
+      <text class="logo-subtitle">洞悉天机 · 把握命运</text>
+    </view>
+  </view>
+
+  <!-- 每日运势卡片 -->
+  <view class="style-card gold">
+    <view class="style-card-content">
+      <view class="fortune-header">
+        <text class="style-card-title">今日运势</text>
+        <view class="fortune-switch">
+          <view class="switch-item {{fortuneType === 'zodiac' ? 'active' : ''}}" bindtap="switchFortuneType" data-type="zodiac">星座</view>
+          <view class="switch-item {{fortuneType === 'bazi' ? 'active' : ''}}" bindtap="switchFortuneType" data-type="bazi">八字</view>
+        </view>
+      </view>
+
+      <!-- 星座选择 -->
+      <picker mode="selector" range="{{zodiacSigns}}" value="{{zodiacIndex}}" bindchange="onZodiacChange" wx:if="{{fortuneType === 'zodiac'}}">
+        <view class="fortune-picker">
+          <text class="picker-value">{{zodiacSigns[zodiacIndex]}}</text>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
+
+      <!-- 八字选择（简化版：只选年份） -->
+      <view class="bazi-input" wx:if="{{fortuneType === 'bazi'}}">
+        <picker mode="selector" range="{{years}}" value="{{yearIndex}}" bindchange="onYearChange">
+          <view class="fortune-picker">
+            <text class="picker-value">{{years[yearIndex]}}年</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 运势展示 -->
+      <view class="fortune-result" wx:if="{{fortune}}">
+        <view class="fortune-level level-{{fortune.levelIndex}}">{{fortune.level}}</view>
+        <view class="fortune-detail">
+          <view class="detail-item">
+            <text class="detail-label">幸运色</text>
+            <text class="detail-value">{{fortune.luckyColor}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">幸运数字</text>
+            <text class="detail-value">{{fortune.luckyNumber}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">宜</text>
+            <text class="detail-value good">{{fortune.good}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">忌</text>
+            <text class="detail-value bad">{{fortune.bad}}</text>
+          </view>
+        </view>
+        <view class="fortune-comment">{{fortune.comment}}</view>
+      </view>
     </view>
   </view>
 
