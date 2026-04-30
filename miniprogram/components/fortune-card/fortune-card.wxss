@@ -3,10 +3,10 @@
 /* 卡片容器 */
 .fortune-card {
   background: #FFFFFF;
-  border-radius: 20rpx;
+  border-radius: 16rpx;
   box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.08);
-  padding: 32rpx;
-  margin-bottom: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
   position: relative;
 }
 
@@ -14,17 +14,29 @@
 .card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
-  margin-bottom: 24rpx;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
 }
 
 .tag-item {
-  font-size: 24rpx;
-  padding: 8rpx 20rpx;
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
   border-radius: 100rpx;
   font-weight: 500;
   line-height: 1;
 }
+
+/* 标签类型颜色 */
+.tag-item.career { background: #E3F2FD; color: #2196F3; }
+.tag-item.social { background: #E8F5E9; color: #4CAF50; }
+.tag-item.love { background: #FCE4EC; color: #E91E63; }
+.tag-item.mind { background: #F3E5F5; color: #9C27B0; }
+.tag-item.emotion { background: #E0F7FA; color: #00BCD4; }
+.tag-item.wealth { background: #FFF8E1; color: #FFA000; }
+.tag-item.health { background: #E8EAF6; color: #3F51B5; }
+.tag-item.general { background: #FFF3E0; color: #F57C00; }
+.tag-item.study { background: #E0F2F1; color: #009688; }
+.tag-item.family { background: #FCE4EC; color: #E91E63; }
 
 /* 卡片头部 */
 .card-header {
@@ -32,12 +44,12 @@
 }
 
 .card-title {
-  font-size: 36rpx;
+  font-size: 32rpx;
   font-weight: bold;
   color: #1a1a1a;
   line-height: 1.4;
   display: block;
-  margin-bottom: 16rpx;
+  margin-bottom: 12rpx;
 }
 
 /* 金色渐变进度条装饰 */
@@ -73,7 +85,7 @@
 }
 
 .card-content.collapsed {
-  max-height: calc(3 * 1.8em);
+  max-height: calc(3 * 1.6em);
   overflow: hidden;
 }
 
@@ -82,9 +94,9 @@
 }
 
 .content-text {
-  font-size: 30rpx;
+  font-size: 28rpx;
   color: #333333;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 
 /* 展开/收起链接 */
@@ -118,6 +130,17 @@
 .footer-icon {
   width: 32rpx;
   height: 32rpx;
+}
+
+.footer-icon-text {
+  font-size: 26rpx;
+  margin-right: 8rpx;
+}
+
+.footer-arrow {
+  font-size: 26rpx;
+  color: #CCCCCC;
+  margin-left: 8rpx;
 }
 
 .footer-text {

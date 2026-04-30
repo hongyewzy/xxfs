@@ -73,25 +73,62 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keyword: '数理', title: '数理分析', tags: [{ type: 'general', name: '综合' }] },
-      { keyword: '三才', title: '三才配置', tags: [{ type: 'general', name: '综合' }, { type: 'mind', name: '思维' }] },
-      { keyword: '建议', title: '改名建议', tags: [{ type: 'career', name: '事业' }] }
+      { keywords: ['五格', '数理', '五格数理', '天格', '人格'], title: '五格分析', tags: [{ type: 'general', name: '综合' }] },
+      { keywords: ['三才', '配置', '三才配置'], title: '三才配置', tags: [{ type: 'general', name: '综合' }] },
+      { keywords: ['综合', '评分', '综合评价', '总评'], title: '综合评价', tags: [{ type: 'general', name: '综合' }] },
+      { keywords: ['建议', '改进', '改进建议'], title: '改进建议', tags: [{ type: 'general', name: '综合' }] }
     ]
 
-    cardConfigs.forEach((config, index) => {
-      let content = ''
-      const sections = aiResult.split(/^## /m)
-      sections.forEach(section => {
-        if (section.includes(config.keyword)) {
-          content += section + '\n'
-        }
-      })
+    const sections = aiResult.split(/^## /m).filter(s => s.trim())
+    const usedSections = new Set()
 
-      if (content) {
-        const contentHtml = markdown.parseMarkdown(content)
+    cardConfigs.forEach((config, index) => {
+      let matchedSection = null
+      let matchedIndex = -1
+
+      for (let i = 0; i < sections.length; i++) {
+        if (usedSections.has(i)) continue
+        const section = sections[i]
+        const lines = section.split('\n')
+        const title = lines[0].trim()
+
+        for (const keyword of config.keywords) {
+          if (title.includes(keyword)) {
+            matchedSection = section
+            matchedIndex = i
+            break
+          }
+        }
+        if (matchedSection) break
+      }
+
+      if (!matchedSection) {
+        for (let i = 0; i < sections.length; i++) {
+          if (usedSections.has(i)) continue
+          const section = sections[i]
+          const lines = section.split('\n')
+          const body = lines.slice(1).join('\n')
+
+          for (const keyword of config.keywords) {
+            if (body.includes(keyword)) {
+              matchedSection = section
+              matchedIndex = i
+              break
+            }
+          }
+          if (matchedSection) break
+        }
+      }
+
+      if (matchedSection) {
+        usedSections.add(matchedIndex)
+        let body = matchedSection.split('\n').slice(1).join('\n').trim()
+        body = body.replace(/^#{1,6}\s*.+$/gm, '').trim()
+        body = body.replace(/\n{3,}/g, '\n\n')
+        const contentHtml = markdown.parseMarkdown(body)
 
         cards.push({
-          id: config.keyword,
+          id: config.keywords[0],
           title: config.title,
           tags: config.tags,
           subtitle: this.data.name,
@@ -104,7 +141,32 @@ Page({
       }
     })
 
-    // 如果没有匹配到任何配置，创建一个默认卡片
+    // 智能兜底
+    if (cards.length < 2 && sections.length > 1) {
+      cards.length = 0
+      sections.forEach((section, index) => {
+        const lines = section.split('\n')
+        const title = lines[0].trim().replace(/^#+\s*/, '')
+        let body = lines.slice(1).join('\n').trim()
+        body = body.replace(/^#{1,6}\s*.+$/gm, '').trim()
+        body = body.replace(/\n{3,}/g, '\n\n')
+
+        if (body) {
+          cards.push({
+            id: `section-${index}`,
+            title: title || `解读 ${index + 1}`,
+            tags: [{ type: 'general', name: '综合' }],
+            subtitle: this.data.name,
+            status: { text: '详细分析', color: '#2196F3' },
+            content: markdown.parseMarkdown(body),
+            maxLines: 3,
+            footer: { icon: '🔤', text: '姓名交流', count: Math.floor(Math.random() * 1200 + 200), action: '人正在讨论' },
+            expanded: index === 0
+          })
+        }
+      })
+    }
+
     if (cards.length === 0 && aiResult) {
       cards.push({
         id: 'default',

@@ -45,67 +45,110 @@ Page({
     }
   },
 
-  parseToCards(result) {
+  parseToCards(aiResult) {
+    const cards = []
     const cardConfigs = [
-      { keyword: '象征', title: '梦境象征', tags: [{ type: 'general', name: '综合' }, { type: 'emotion', name: '情绪' }] },
-      { keyword: '启示', title: '潜在启示', tags: [{ type: 'general', name: '综合' }, { type: 'mind', name: '思维' }] },
-      { keyword: '建议', title: '行动建议', tags: [{ type: 'career', name: '事业' }] }
+      { keywords: ['象征', '梦境象征', '象征意义'], title: '梦境象征', tags: [{ type: 'general', name: '综合' }, { type: 'emotion', name: '情绪' }] },
+      { keywords: ['启示', '心理', '心理暗示', '潜在启示'], title: '潜在启示', tags: [{ type: 'general', name: '综合' }, { type: 'mind', name: '思维' }] },
+      { keywords: ['建议', '行动', '行动建议'], title: '行动建议', tags: [{ type: 'career', name: '事业' }] }
     ]
 
-    const lines = result.split('\n')
-    const cards = []
-    let currentCard = null
-    let currentContent = []
+    const sections = aiResult.split(/^## /m).filter(s => s.trim())
+    const usedSections = new Set()
 
-    for (const line of lines) {
-      // 检查是否匹配某个卡片的关键词
-      let matchedConfig = null
-      for (const config of cardConfigs) {
-        if (line.includes(config.keyword) && (line.includes('：') || line.includes(':') || line.includes('.'))) {
-          matchedConfig = config
-          break
+    cardConfigs.forEach((config, index) => {
+      let matchedSection = null
+      let matchedIndex = -1
+
+      for (let i = 0; i < sections.length; i++) {
+        if (usedSections.has(i)) continue
+        const section = sections[i]
+        const lines = section.split('\n')
+        const title = lines[0].trim()
+
+        for (const keyword of config.keywords) {
+          if (title.includes(keyword)) {
+            matchedSection = section
+            matchedIndex = i
+            break
+          }
+        }
+        if (matchedSection) break
+      }
+
+      if (!matchedSection) {
+        for (let i = 0; i < sections.length; i++) {
+          if (usedSections.has(i)) continue
+          const section = sections[i]
+          const lines = section.split('\n')
+          const body = lines.slice(1).join('\n')
+
+          for (const keyword of config.keywords) {
+            if (body.includes(keyword)) {
+              matchedSection = section
+              matchedIndex = i
+              break
+            }
+          }
+          if (matchedSection) break
         }
       }
 
-      if (matchedConfig) {
-        // 保存之前的卡片
-        if (currentCard) {
-          currentCard.content = markdown.parseMarkdown(currentContent.join('\n').trim())
-          cards.push(currentCard)
-        }
-        // 开始新卡片
-        currentCard = {
-          id: matchedConfig.keyword,
-          title: matchedConfig.title,
-          tags: matchedConfig.tags,
+      if (matchedSection) {
+        usedSections.add(matchedIndex)
+        let body = matchedSection.split('\n').slice(1).join('\n').trim()
+        body = body.replace(/^#{1,6}\s*.+$/gm, '').trim()
+        body = body.replace(/\n{3,}/g, '\n\n')
+        const contentHtml = markdown.parseMarkdown(body)
+
+        cards.push({
+          id: config.keywords[0],
+          title: config.title,
+          tags: config.tags,
           subtitle: this.data.dreamContent.slice(0, 20) + '...',
           status: { text: '立即查看', color: '#00BCD4' },
-          content: '',
+          content: contentHtml,
           maxLines: 3,
           footer: { icon: '🌙', text: '梦友交流', count: Math.floor(Math.random() * 1500 + 300), action: '人做过类似梦' },
-          expanded: cards.length === 0
-        }
-        currentContent = []
-      } else if (currentCard) {
-        currentContent.push(line)
+          expanded: index === 0
+        })
       }
+    })
+
+    // 智能兜底
+    if (cards.length < 2 && sections.length > 1) {
+      cards.length = 0
+      sections.forEach((section, index) => {
+        const lines = section.split('\n')
+        const title = lines[0].trim().replace(/^#+\s*/, '')
+        let body = lines.slice(1).join('\n').trim()
+        body = body.replace(/^#{1,6}\s*.+$/gm, '').trim()
+        body = body.replace(/\n{3,}/g, '\n\n')
+
+        if (body) {
+          cards.push({
+            id: `section-${index}`,
+            title: title || `解读 ${index + 1}`,
+            tags: [{ type: 'general', name: '综合' }],
+            subtitle: this.data.dreamContent.slice(0, 20) + '...',
+            status: { text: '立即查看', color: '#00BCD4' },
+            content: markdown.parseMarkdown(body),
+            maxLines: 3,
+            footer: { icon: '🌙', text: '梦友交流', count: Math.floor(Math.random() * 1500 + 300), action: '人做过类似梦' },
+            expanded: index === 0
+          })
+        }
+      })
     }
 
-    // 保存最后一个卡片
-    if (currentCard) {
-      currentCard.content = markdown.parseMarkdown(currentContent.join('\n').trim())
-      cards.push(currentCard)
-    }
-
-    // 如果没有匹配到任何卡片，将整个结果作为默认卡片
-    if (cards.length === 0) {
+    if (cards.length === 0 && aiResult) {
       cards.push({
         id: 'default',
         title: '梦境解析',
         tags: [{ type: 'general', name: '综合' }],
         subtitle: this.data.dreamContent.slice(0, 20) + '...',
         status: { text: '立即查看', color: '#00BCD4' },
-        content: markdown.parseMarkdown(result),
+        content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
         footer: { icon: '🌙', text: '梦友交流', count: Math.floor(Math.random() * 1500 + 300), action: '人做过类似梦' },
         expanded: true

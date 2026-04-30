@@ -182,46 +182,122 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keyword: '五行', title: '五行分析', tags: [{ type: 'general', name: '综合' }] },
-      { keyword: '性格', title: '性格特点', tags: [{ type: 'mind', name: '性格' }, { type: 'emotion', name: '情绪' }] },
-      { keyword: '事业', title: '事业运势', tags: [{ type: 'career', name: '事业' }, { type: 'wealth', name: '财运' }] },
-      { keyword: '感情', title: '感情婚姻', tags: [{ type: 'love', name: '爱情' }, { type: 'social', name: '人际' }] },
-      { keyword: '健康', title: '健康注意', tags: [{ type: 'health', name: '健康' }] }
+      { keywords: ['五行', '命格', '格局', '五行配置'], title: '五行命格', tags: [{ type: 'general', name: '综合' }] },
+      { keywords: ['性格', '个性', '特质', '性格特点'], title: '性格特点', tags: [{ type: 'mind', name: '性格' }, { type: 'emotion', name: '情绪' }] },
+      { keywords: ['事业', '工作', '财运', '财富', '事业运势'], title: '事业财运', tags: [{ type: 'career', name: '事业' }, { type: 'wealth', name: '财运' }] },
+      { keywords: ['感情', '婚姻', '爱情', '姻缘', '感情婚姻'], title: '感情婚姻', tags: [{ type: 'love', name: '爱情' }, { type: 'social', name: '人际' }] },
+      { keywords: ['健康', '身体', '疾病', '健康注意'], title: '健康运势', tags: [{ type: 'health', name: '健康' }] },
+      { keywords: ['贵人', '人际', '贵人运', '人际关系'], title: '贵人运势', tags: [{ type: 'social', name: '人际' }] },
+      { keywords: ['建议', '指引', '注意', '人生建议', '综合建议'], title: '人生建议', tags: [{ type: 'general', name: '综合' }] }
     ]
 
+    // 尝试按 ## 分割，如果没有则整体作为一个 section
     const sections = aiResult.split(/^## /m).filter(s => s.trim())
+    const usedSections = new Set()
 
     cardConfigs.forEach((config, index) => {
-      let matchedSection = ''
-      for (const section of sections) {
+      let matchedSection = null
+      let matchedIndex = -1
+
+      for (let i = 0; i < sections.length; i++) {
+        if (usedSections.has(i)) continue
+
+        const section = sections[i]
         const lines = section.split('\n')
         const title = lines[0].trim()
-        const body = lines.slice(1).join('\n')
-        if (title.includes(config.keyword) || body.includes(config.keyword)) {
-          matchedSection = section
-          break
+
+        // 优先匹配标题包含任一关键字的 section
+        for (const keyword of config.keywords) {
+          if (title.includes(keyword)) {
+            matchedSection = section
+            matchedIndex = i
+            break
+          }
+        }
+        if (matchedSection) break
+      }
+
+      // 如果标题没匹配到，再在正文里找
+      if (!matchedSection) {
+        for (let i = 0; i < sections.length; i++) {
+          if (usedSections.has(i)) continue
+
+          const section = sections[i]
+          const lines = section.split('\n')
+          const body = lines.slice(1).join('\n')
+
+          for (const keyword of config.keywords) {
+            if (body.includes(keyword)) {
+              matchedSection = section
+              matchedIndex = i
+              break
+            }
+          }
+          if (matchedSection) break
         }
       }
 
       if (matchedSection) {
+        usedSections.add(matchedIndex)
+
         let body = matchedSection.split('\n').slice(1).join('\n').trim()
         body = body.replace(/^#{1,6}\s*.+$/gm, '').trim()
         body = body.replace(/\n{3,}/g, '\n\n')
         const contentHtml = markdown.parseMarkdown(body)
 
         cards.push({
-          id: config.keyword,
+          id: config.keywords[0],
           title: config.title,
           tags: config.tags,
           subtitle: '',
           status: { text: '点击查看', color: '#B8962E' },
           content: contentHtml,
           maxLines: 3,
-          footer: { icon: '💬', text: '同类交流', count: Math.floor(Math.random() * 2000 + 500), action: '人正在讨论' },
           expanded: index === 0
         })
       }
     })
+
+    // 智能兜底：如果匹配到的卡片少于 2 个，按 ## 标题自动拆分
+    if (cards.length < 2 && sections.length > 1) {
+      cards.length = 0 // 清空原有卡片，重新按段落拆分
+      sections.forEach((section, index) => {
+        const lines = section.split('\n')
+        const title = lines[0].trim().replace(/^#+\s*/, '')
+        let body = lines.slice(1).join('\n').trim()
+        body = body.replace(/^#{1,6}\s*.+$/gm, '').trim()
+        body = body.replace(/\n{3,}/g, '\n\n')
+
+        if (body) {
+          const contentHtml = markdown.parseMarkdown(body)
+          cards.push({
+            id: `section-${index}`,
+            title: title || `解读 ${index + 1}`,
+            tags: [{ type: 'general', name: '综合' }],
+            subtitle: '',
+            status: { text: '点击查看', color: '#B8962E' },
+            content: contentHtml,
+            maxLines: 3,
+            expanded: index === 0
+          })
+        }
+      })
+    }
+
+    // 最终兜底：如果仍然没有卡片，将全部内容作为一个卡片
+    if (cards.length === 0 && aiResult) {
+      cards.push({
+        id: 'default',
+        title: '八字解读',
+        tags: [{ type: 'general', name: '综合' }],
+        subtitle: '',
+        status: { text: '点击查看', color: '#B8962E' },
+        content: markdown.parseMarkdown(aiResult),
+        maxLines: 3,
+        expanded: true
+      })
+    }
+
     return cards
   }
 })
