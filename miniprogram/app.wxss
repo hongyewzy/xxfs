@@ -52,18 +52,18 @@ page {
 
 /* 按钮样式 */
 .btn-primary {
-  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-  color: #ffffff;
+  background: linear-gradient(135deg, #B8962E 0%, #D4A84B 50%, #F0D878 100%);
+  color: #1a1a1a;
   border: none;
-  border-radius: 16rpx;
-  padding: 28rpx 48rpx;
+  border-radius: 50rpx;
+  padding: 32rpx 48rpx;
   font-size: 32rpx;
   font-weight: 700;
   text-align: center;
-  letter-spacing: 4rpx;
+  letter-spacing: 6rpx;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4rpx 16rpx rgba(184, 150, 46, 0.3);
+  box-shadow: 0 8rpx 24rpx rgba(184, 150, 46, 0.4), inset 0 2rpx 4rpx rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -72,33 +72,44 @@ page {
   position: absolute;
   top: 0;
   left: -100%;
-  width: 100%;
+  width: 200%;
   height: 100%;
-  background: var(--gold-shimmer);
-  transition: left 0.5s ease;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
 .btn-primary:active {
-  transform: scale(0.98);
-  box-shadow: 0 2rpx 8rpx rgba(184, 150, 46, 0.2);
+  transform: scale(0.96);
+  box-shadow: 0 4rpx 12rpx rgba(184, 150, 46, 0.3), inset 0 2rpx 4rpx rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary[disabled] {
+  opacity: 0.7;
+  box-shadow: 0 4rpx 12rpx rgba(184, 150, 46, 0.2);
 }
 
 .btn-secondary {
-  background: #ffffff;
+  background: transparent;
   color: var(--gold-primary);
-  border: 2rpx solid var(--gold-primary);
-  border-radius: 16rpx;
-  padding: 26rpx 46rpx;
+  border: 3rpx solid var(--gold-primary);
+  border-radius: 50rpx;
+  padding: 28rpx 46rpx;
   font-size: 30rpx;
+  font-weight: 600;
   text-align: center;
-  letter-spacing: 2rpx;
+  letter-spacing: 4rpx;
   position: relative;
   transition: all 0.3s ease;
 }
 
 .btn-secondary:active {
-  background: rgba(184, 150, 46, 0.08);
-  transform: scale(0.98);
+  background: rgba(184, 150, 46, 0.1);
+  transform: scale(0.96);
 }
 
 /* 输入框样式 */
