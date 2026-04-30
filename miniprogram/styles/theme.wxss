@@ -1,715 +1,382 @@
-/* theme.wxss - 晨光星河天机阁风格 */
+/* ===================== 通用卡片基础样式 ===================== */
 
-:root {
-  /* 主色调 - 晨光浅色 */
-  --bg-primary: #f5f3f0;
-  --bg-secondary: #e8e5e0;
-  --bg-card: linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 243, 240, 0.9) 100%);
-  --bg-elevated: #ffffff;
-
-  /* 金色强调 */
-  --gold-primary: #b8962e;
-  --gold-light: #d4af37;
-  --gold-dark: #8b7020;
-  --gold-gradient: linear-gradient(135deg, #b8962e 0%, #d4af37 50%, #8b7020 100%);
-  --gold-shimmer: linear-gradient(110deg, transparent 30%, rgba(212, 175, 55, 0.3) 50%, transparent 70%);
-
-  /* 星河蓝青色系 */
-  --blue-primary: #4a7cb4;
-  --blue-light: #6b9fd4;
-  --blue-dark: #2d5a8a;
-  --blue-glow: rgba(74, 124, 180, 0.3);
-
-  /* 文字颜色 - 深色 */
-  --text-primary: #1a1a1a;
-  --text-secondary: #4a4a4a;
-  --text-muted: #7a7a7a;
-
-  /* 边框 */
-  --border-gold: rgba(184, 150, 46, 0.5);
-  --border-gold-light: rgba(184, 150, 46, 0.25);
-  --border-blue: rgba(74, 124, 180, 0.4);
-  --border-light: rgba(0, 0, 0, 0.08);
-
-  /* 阴影 */
-  --shadow-gold: 0 4rpx 24rpx rgba(184, 150, 46, 0.25);
-  --shadow-blue: 0 4rpx 24rpx rgba(74, 124, 180, 0.2);
-  --shadow-dark: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
-  --shadow-card: 0 8rpx 32rpx rgba(0, 0, 0, 0.06);
-
-  /* 五行颜色 */
-  --wuxing-gold: #b8962e;
-  --wuxing-wood: #22c55e;
-  --wuxing-water: #0ea5e9;
-  --wuxing-fire: #ef4444;
-  --wuxing-earth: #eab308;
-}
-
-/* 星光装饰背景 */
-.star-bg {
-  position: relative;
+/* 基础卡片容器 - 所有页面通用 */
+.card {
+  background: #FFFFFF;
+  border-radius: 32rpx;
+  margin-bottom: 32rpx;
   overflow: hidden;
-}
-
-/* 金色边框装饰框 */
-.gold-frame {
-  border: 2rpx solid var(--gold-primary);
-  border-radius: 16rpx;
+  box-shadow: 0 8rpx 32rpx rgba(184, 150, 46, 0.12);
   position: relative;
 }
 
-.gold-frame::before,
-.gold-frame::after {
-  content: '';
-  position: absolute;
-  width: 24rpx;
-  height: 24rpx;
-  border: 2rpx solid var(--gold-primary);
-}
-
-.gold-frame::before {
-  top: -6rpx;
-  left: -6rpx;
-  border-right: none;
-  border-bottom: none;
-}
-
-.gold-frame::after {
-  bottom: -6rpx;
-  right: -6rpx;
-  border-left: none;
-  border-top: none;
-}
-
-/* 标题装饰 */
-.section-title {
+/* 卡片标题 */
+.card-title {
   font-size: 36rpx;
-  color: var(--gold-primary);
-  text-align: center;
-  position: relative;
-  padding: 0 60rpx;
-  margin-bottom: 40rpx;
+  font-weight: 700;
+  color: #2A2A2A;
+  padding: 36rpx 36rpx 20rpx;
 }
 
-.section-title::before,
-.section-title::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 40rpx;
-  height: 2rpx;
-  background: var(--gold-primary);
-}
+/* ===================== 折叠卡片样式 ===================== */
 
-.section-title::before {
-  left: 0;
-}
-
-.section-title::after {
-  right: 0;
-}
-
-/* 八字展示 */
-.bazi-pillar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(180deg, rgba(184, 150, 46, 0.08) 0%, rgba(184, 150, 46, 0.03) 100%);
-  border: 1rpx solid var(--border-gold);
-  border-radius: 12rpx;
-  padding: 20rpx 30rpx;
-  min-width: 100rpx;
-}
-
-.bazi-pillar .gan {
-  font-size: 48rpx;
-  color: var(--gold-primary);
-  font-weight: 600;
-  margin-bottom: 10rpx;
-}
-
-.bazi-pillar .zhi {
-  font-size: 48rpx;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.bazi-pillar .label {
-  font-size: 22rpx;
-  color: var(--text-muted);
-  margin-top: 10rpx;
-}
-
-/* 五行标签 */
-.wuxing-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48rpx;
-  height: 48rpx;
-  border-radius: 50%;
-  font-size: 26rpx;
-  font-weight: 600;
-  color: #fff;
-}
-
-.wuxing-tag.jin { background: var(--wuxing-gold); }
-.wuxing-tag.mu { background: var(--wuxing-wood); }
-.wuxing-tag.shui { background: var(--wuxing-water); }
-.wuxing-tag.huo { background: var(--wuxing-fire); }
-.wuxing-tag.tu { background: var(--wuxing-earth); }
-
-/* 塔罗牌样式 */
-.tarot-card {
-  width: 180rpx;
-  height: 300rpx;
-  background: linear-gradient(145deg, #fafafa 0%, #f0f0f0 100%);
-  border: 2rpx solid var(--gold-primary);
-  border-radius: 16rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-
-.tarot-card.flipped {
-  transform: rotateY(180deg);
-}
-
-.tarot-card-front,
-.tarot-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.tarot-card-back {
-  background: var(--gold-gradient);
-}
-
-.tarot-card-front {
-  transform: rotateY(180deg);
-  background: #fafafa;
-}
-
-.tarot-card .card-name {
-  font-size: 24rpx;
-  color: var(--gold-primary);
-  text-align: center;
-  padding: 10rpx;
-}
-
-/* 卦象样式 */
-.gua-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30rpx;
-}
-
-.yao {
-  display: flex;
-  gap: 10rpx;
-  margin: 8rpx 0;
-}
-
-.yao-line {
-  width: 80rpx;
-  height: 16rpx;
-  background: var(--gold-primary);
-  border-radius: 4rpx;
-}
-
-.yao-line.broken {
-  width: 35rpx;
-}
-
-.yao-line.yang {
-  opacity: 1;
-}
-
-.yao-line.yin {
-  opacity: 0.5;
-}
-
-/* 结果展示 */
-.result-section {
-  background: rgba(184, 150, 46, 0.05);
-  border-radius: 16rpx;
-  padding: 30rpx;
-  border-left: 4rpx solid var(--gold-primary);
-}
-
-.result-section .title {
-  font-size: 30rpx;
-  color: var(--gold-primary);
-  margin-bottom: 16rpx;
-}
-
-.result-section .content {
-  font-size: 28rpx;
-  color: var(--text-primary);
-  line-height: 1.8;
-}
-
-/* 打字机效果 */
-.typing-text {
-  overflow: hidden;
-  white-space: pre-wrap;
-  animation: typing 0.5s steps(1) forwards;
-}
-
-@keyframes typing {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* 星光加载动画 */
-.loading-star {
-  width: 120rpx;
-  height: 80rpx;
-  position: relative;
-}
-
-.loading-star::before {
-  content: '✦';
-  font-size: 80rpx;
-  color: var(--gold-primary);
-  animation: twinkle-star 2s ease-in-out infinite;
-}
-
-@keyframes twinkle-star {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
-  50% { transform: translateY(-20rpx) scale(1.1); opacity: 1; }
-}
-
-/* 功能入口网格 */
-.function-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24rpx;
-  padding: 20rpx;
-}
-
-.function-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30rpx 20rpx;
-  background: var(--bg-card);
-  border-radius: 16rpx;
-  border: 1rpx solid var(--border-light);
-  transition: all 0.3s;
-}
-
-.function-item:active {
-  transform: scale(0.95);
-  border-color: var(--gold-primary);
-  box-shadow: var(--shadow-gold);
-}
-
-.function-item .icon {
-  width: 80rpx;
-  height: 80rpx;
-  margin-bottom: 16rpx;
-}
-
-.function-item .name {
-  font-size: 28rpx;
-  color: var(--text-primary);
-}
-
-.function-item .desc {
-  font-size: 22rpx;
-  color: var(--text-muted);
-  margin-top: 8rpx;
-}
-
-/* AI 结果卡片 */
-.ai-result-card {
+/* 折叠卡片容器 - 杂志风 */
+.analysis-card {
   background: #ffffff;
-  border-radius: 24rpx;
-  padding: 32rpx;
-  margin-bottom: 24rpx;
-  border: 1rpx solid var(--border-gold);
-  box-shadow: var(--shadow-gold);
-  position: relative;
+  border-radius: 32rpx;
+  margin-bottom: 32rpx;
   overflow: hidden;
+  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.08);
+  position: relative;
 }
 
-.ai-result-card::before {
+/* 顶部彩色渐变装饰条 */
+.analysis-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 8rpx;
-  background: var(--gold-gradient);
+  background: linear-gradient(90deg,
+    var(--gold-dark) 0%,
+    var(--gold-primary) 30%,
+    var(--gold-light) 60%,
+    var(--gold-primary) 100%
+  );
 }
 
-/* AI 头部 */
-.ai-header {
+/* 卡片头部 */
+.analysis-card .card-header {
   display: flex;
-  align-items: center;
-  gap: 16rpx;
-  margin-bottom: 32rpx;
-  padding-bottom: 24rpx;
-  border-bottom: 2rpx solid var(--border-gold-light);
-}
-
-.ai-icon {
-  width: 56rpx;
-  height: 56rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--gold-gradient);
-  border-radius: 50%;
-  font-size: 28rpx;
-  color: #fff;
-  font-weight: 700;
-}
-
-.ai-title {
-  font-size: 34rpx;
-  color: var(--gold-primary);
-  font-weight: 700;
-  letter-spacing: 2rpx;
-  flex: 1;
-}
-
-/* 复制按钮 */
-.copy-btn {
-  display: flex;
-  align-items: center;
-  gap: 8rpx;
-  padding: 10rpx 20rpx;
-  background: rgba(184, 150, 46, 0.1);
-  border: 1rpx solid var(--border-gold);
-  border-radius: 30rpx;
-  transition: all 0.3s;
-}
-
-.copy-btn:active {
-  background: rgba(184, 150, 46, 0.2);
-}
-
-.copy-icon {
-  font-size: 24rpx;
-}
-
-.copy-text {
-  font-size: 24rpx;
-  color: var(--gold-primary);
-}
-
-/* AI 内容区域 - 优化排版 */
-.ai-content {
-  color: var(--text-primary);
-  font-size: 28rpx;
-  line-height: 2;
+  align-items: flex-start;
+  padding: 40rpx 40rpx 32rpx;
   position: relative;
-  z-index: 1;
+  cursor: pointer;
 }
 
-.ai-content rich-text {
-  display: block;
-}
-
-/* 一级标题 - 大标题 */
-.ai-content h1 {
-  font-size: 34rpx;
-  color: #ffffff;
-  font-weight: 700;
-  margin: 44rpx 0 28rpx;
-  padding: 20rpx 0 20rpx 24rpx;
-  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-  border-radius: 12rpx;
-  text-align: left;
-}
-
-.ai-content h1:first-child {
-  margin-top: 0;
-}
-
-/* 二级标题 - 小标题 */
-.ai-content h2 {
-  font-size: 30rpx;
-  color: var(--gold-primary);
-  font-weight: 700;
-  margin: 40rpx 0 20rpx;
-  padding: 16rpx 0 16rpx 0;
-  border-bottom: 2rpx solid rgba(184, 150, 46, 0.2);
-  display: block;
-}
-
-/* 三级标题 */
-.ai-content h3 {
-  font-size: 28rpx;
-  color: var(--text-primary);
-  font-weight: 600;
-  margin: 32rpx 0 16rpx;
-  padding: 12rpx 0;
-  border-left: 5rpx solid var(--blue-primary);
-  padding-left: 16rpx;
-}
-
-/* 段落 - 加大间距 */
-.ai-content p {
-  margin: 0;
-  line-height: 2.4;
-  color: var(--text-secondary);
-  padding: 16rpx 0;
-}
-
-/* 标题后面的第一个段落 */
-.ai-content h1 + p,
-.ai-content h2 + p,
-.ai-content h3 + p {
-  margin-top: 8rpx;
-}
-
-/* 加粗强调 */
-.ai-content strong {
-  color: var(--gold-dark);
-  font-weight: 700;
-  background: rgba(184, 150, 46, 0.15);
-  padding: 4rpx 12rpx;
-  border-radius: 6rpx;
-  margin: 0 4rpx;
-}
-
-/* 关键词高亮 */
-.ai-content mark {
-  color: var(--gold-primary);
-  font-weight: 700;
-  background: rgba(184, 150, 46, 0.2);
-  padding: 2rpx 10rpx;
-  border-radius: 6rpx;
-  margin: 0 2rpx;
-  border-bottom: 2rpx solid var(--gold-primary);
-}
-
-/* 斜体 */
-.ai-content em {
-  color: var(--text-muted);
-  font-style: italic;
-}
-
-/* 有序列表 */
-.ai-content ol {
-  margin: 16rpx 0;
-  padding-left: 40rpx;
-  counter-reset: item;
-}
-
-.ai-content ol li {
-  margin: 12rpx 0;
-  color: var(--text-secondary);
-  line-height: 2.2;
-  list-style-type: none;
-  position: relative;
-  padding-left: 12rpx;
-}
-
-.ai-content ol li::before {
-  content: counter(item) ".";
-  counter-increment: item;
-  position: absolute;
-  left: -28rpx;
-  color: var(--gold-primary);
-  font-weight: 700;
-}
-
-/* 无序列表 */
-.ai-content ul {
-  margin: 16rpx 0;
-  padding-left: 40rpx;
-}
-
-.ai-content ul li {
-  margin: 12rpx 0;
-  color: var(--text-secondary);
-  line-height: 2.2;
-  position: relative;
-  padding-left: 12rpx;
-}
-
-.ai-content ul li::before {
-  content: '●';
-  position: absolute;
-  left: -20rpx;
-  font-size: 14rpx;
-  color: var(--gold-primary);
-}
-
-/* 分隔线 */
-.ai-content hr {
-  border: none;
-  height: 1rpx;
-  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-  margin: 36rpx 0;
-}
-
-/* 列表项分隔 */
-.ai-content li + li {
-  margin-top: 20rpx;
-}
-
-/* 加载动画 */
-.ai-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80rpx 40rpx;
-  background: #ffffff;
-  border-radius: 20rpx;
-  margin: 30rpx 0;
-}
-
-.loading-dots {
-  display: flex;
-  gap: 16rpx;
-}
-
-.loading-dot {
-  width: 20rpx;
-  height: 20rpx;
-  background: var(--gold-primary);
-  border-radius: 50%;
-  animation: loadingPulse 1.4s ease-in-out infinite;
-}
-
-.loading-dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.loading-dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes loadingPulse {
-  0%, 80%, 100% {
-    transform: scale(0.6);
-    opacity: 0.5;
-  }
-  40% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* ===================== 折叠卡片样式 ===================== */
-
-/* 折叠卡片容器 */
-.analysis-card {
-  background: #ffffff;
-  border-radius: 20rpx;
-  border: 1rpx solid var(--border-gold-light);
-  margin-bottom: 20rpx;
-  overflow: hidden;
-  box-shadow: 0 4rpx 16rpx rgba(184, 150, 46, 0.12);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 卡片头部（可点击） */
-.card-header {
-  display: flex;
-  align-items: center;
-  padding: 28rpx 30rpx;
-  background: linear-gradient(135deg, rgba(184, 150, 46, 0.08) 0%, rgba(184, 150, 46, 0.03) 100%);
-  position: relative;
+.analysis-card .card-header:active {
+  background: rgba(184, 150, 46, 0.03);
 }
 
 /* 展开时的底部边框 */
-.card-header.expanded {
-  border-bottom: 1rpx solid var(--border-gold-light);
+.analysis-card .card-header.expanded {
+  border-bottom: 1rpx solid rgba(184, 150, 46, 0.12);
 }
 
-/* 卡片头部点击态 */
-.card-header:active {
-  background: linear-gradient(135deg, rgba(184, 150, 46, 0.12) 0%, rgba(184, 150, 46, 0.06) 100%);
+/* 卡片图标 - 圆形彩色 */
+.analysis-card .card-icon {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+  border-radius: 50%;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+  box-shadow: 0 8rpx 20rpx rgba(184, 150, 46, 0.4);
 }
 
-/* 卡片图标 */
-.card-icon {
+/* 卡片标题 */
+.analysis-card .card-title-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.analysis-card .card-title {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: 3rpx;
+  line-height: 1.3;
+}
+
+/* 卡片标题下方的英文副标题（可选） */
+.analysis-card .card-subtitle {
+  font-size: 22rpx;
+  color: #888;
+  letter-spacing: 2rpx;
+  margin-top: 6rpx;
+  text-transform: uppercase;
+}
+
+/* 摘要文字 */
+.analysis-card .card-summary {
+  font-size: 32rpx;
+  color: #5a5a6a;
+  line-height: 2.2;
+  padding: 0 40rpx 40rpx;
+  background: transparent;
+  letter-spacing: 1rpx;
+}
+
+.analysis-card .card-summary.hidden {
+  display: none;
+}
+
+/* 展开/收起箭头 - 金色 */
+.analysis-card .card-arrow {
   width: 44rpx;
   height: 44rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--gold-gradient);
-  border-radius: 12rpx;
-  font-size: 24rpx;
-  color: #fff;
-  margin-right: 20rpx;
-  flex-shrink: 0;
-}
-
-/* 卡片标题 */
-.card-title {
-  flex: 1;
-  font-size: 30rpx;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-/* 摘要文字 */
-.card-summary {
-  font-size: 26rpx;
-  color: var(--text-muted);
-  line-height: 1.6;
-  padding: 0 30rpx 28rpx;
-  background: linear-gradient(135deg, rgba(184, 150, 46, 0.08) 0%, rgba(184, 150, 46, 0.03) 100%);
-}
-
-/* 摘要文字隐藏 */
-.card-summary.hidden {
-  display: none;
-}
-
-/* 展开/收起图标 */
-.card-arrow {
-  width: 32rpx;
-  height: 32rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--gold-primary);
-  font-size: 20rpx;
+  font-size: 24rpx;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card-arrow.expanded {
+.analysis-card .card-arrow.expanded {
   transform: rotate(180deg);
 }
 
 /* 卡片内容区域 */
-.card-content {
-  padding: 30rpx;
-  background: #fff;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.analysis-card .card-content {
+  padding: 0 40rpx 48rpx;
+  background: transparent;
 }
 
 /* 卡片内容隐藏 */
-.card-content.hidden {
+.analysis-card .card-content.hidden {
   display: none;
 }
 
-/* 分析结果容器（多个卡片） */
+/* 卡片内文字内容 - 杂志风排版 */
+.analysis-card .card-body {
+  color: #3a3a3a;
+  font-size: 32rpx;
+  line-height: 2.8;
+  padding: 0 40rpx 48rpx;
+}
+
+.analysis-card .card-body rich-text {
+  display: block;
+}
+
+/* 段落 - 杂志风大间距 */
+.analysis-card .card-body p {
+  margin: 0;
+  line-height: 2.8;
+  color: #3a3a3a;
+  padding: 32rpx 0;
+  text-align: justify;
+  letter-spacing: 1rpx;
+  font-size: 32rpx;
+}
+
+/* 首段识别为标题 - 大字 + 底部装饰线 */
+.analysis-card .card-body p:first-child {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-top: 0;
+  padding-top: 32rpx;
+  padding-bottom: 36rpx;
+  margin-bottom: 24rpx;
+  border-bottom: 6rpx solid var(--gold-primary);
+  letter-spacing: 4rpx;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* 加粗 - 金色高亮 */
+.analysis-card .card-body strong {
+  font-weight: 700;
+  color: var(--gold-primary);
+  padding: 6rpx 16rpx;
+  margin: 0 6rpx;
+  background: linear-gradient(180deg, rgba(184, 150, 46, 0.18) 0%, rgba(184, 150, 46, 0.1) 100%);
+  border-radius: 10rpx;
+  border-bottom: 3rpx solid var(--gold-light);
+  font-size: 32rpx;
+}
+
+/* 列表 */
+.analysis-card .card-body ol,
+.analysis-card .card-body ul {
+  margin: 48rpx 0;
+  padding-left: 56rpx;
+}
+
+.analysis-card .card-body ol li,
+.analysis-card .card-body ul li {
+  margin: 36rpx 0;
+  color: #3a3a3a;
+  line-height: 2.6;
+  position: relative;
+  padding-left: 20rpx;
+  font-size: 32rpx;
+}
+
+/* 无序列表装饰圆点 - 更大更醒目 */
+.analysis-card .card-body ul li::before {
+  content: '';
+  position: absolute;
+  left: -40rpx;
+  top: 32rpx;
+  width: 16rpx;
+  height: 16rpx;
+  background: var(--gold-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 12rpx rgba(184, 150, 46, 0.5);
+}
+
+/* 有序列表数字样式 */
+.analysis-card .card-body ol {
+  counter-reset: item;
+}
+
+.analysis-card .card-body ol li {
+  display: block;
+}
+
+.analysis-card .card-body ol li::before {
+  content: counter(item) ".";
+  counter-increment: item;
+  position: absolute;
+  left: -48rpx;
+  color: var(--gold-primary);
+  font-weight: 700;
+  font-size: 32rpx;
+}
+
+/* 分隔线 */
+.analysis-card .card-body hr {
+  border: none;
+  height: 6rpx;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  margin: 72rpx 0;
+}
+
+/* Markdown 标题样式 */
+.analysis-card .card-body h1 {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 32rpx 0 24rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 6rpx solid var(--gold-primary);
+  line-height: 1.6;
+}
+
+.analysis-card .card-body h2 {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin: 28rpx 0 20rpx;
+  padding-bottom: 12rpx;
+  border-bottom: 4rpx solid var(--gold-primary);
+  line-height: 1.5;
+}
+
+.analysis-card .card-body h3 {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #3a3a3a;
+  margin: 24rpx 0 16rpx;
+  line-height: 1.5;
+}
+
+/* 分析结果容器 */
 .analysis-cards {
   margin-top: 30rpx;
 }
 
-/* 复制按钮在卡片内 */
-.analysis-card .copy-btn {
-  margin: 20rpx 30rpx 30rpx;
+/* ===================== 统一卡片样式 ===================== */
+
+/* 基础卡片容器 */
+.style-card {
+  background: #FFFFFF;
+  border-radius: 32rpx;
+  margin-bottom: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 32rpx rgba(184, 150, 46, 0.12);
+  position: relative;
+}
+
+/* 卡片顶部渐变装饰条 */
+.style-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: linear-gradient(90deg, var(--card-gradient-start), var(--card-gradient-end));
+}
+
+/* 不同颜色的装饰条变量 */
+.style-card.gold { --card-gradient-start: #B8962E; --card-gradient-end: #D4A84B; }
+.style-card.purple { --card-gradient-start: #8B5CF6; --card-gradient-end: #A78BFA; }
+.style-card.green { --card-gradient-start: #10B981; --card-gradient-end: #34D399; }
+.style-card.blue { --card-gradient-start: #3B82F6; --card-gradient-end: #60A5FA; }
+.style-card.orange { --card-gradient-start: #F59E0B; --card-gradient-end: #FBBF24; }
+.style-card.cyan { --card-gradient-start: #06B6D4; --card-gradient-end: #22D3EE; }
+.style-card.red { --card-gradient-start: #EF4444; --card-gradient-end: #F87171; }
+
+/* 卡片内容区 */
+.style-card-content {
+  padding: 36rpx;
+}
+
+/* 卡片标题 */
+.style-card-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #2A2A2A;
+  margin-bottom: 16rpx;
+}
+
+/* 卡片副标题 */
+.style-card-subtitle {
+  font-size: 26rpx;
+  color: #999999;
+  margin-bottom: 24rpx;
+}
+
+/* 卡片摘要 */
+.style-card-summary {
+  font-size: 30rpx;
+  color: #666666;
+  line-height: 2;
+}
+
+/* 卡片底部数据 */
+.style-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #F0F0F0;
+}
+
+.style-card-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 26rpx;
+  color: #999999;
+}
+
+/* ===================== 运势卡片区域样式 ===================== */
+
+/* 运势卡片区域容器 */
+.fortune-cards {
+  margin-top: 32rpx;
+}
+
+/* 运势卡片区域标题 */
+.fortune-section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--gold-primary);
+  text-align: center;
+  margin-bottom: 24rpx;
+  letter-spacing: 4rpx;
 }
