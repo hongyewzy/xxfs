@@ -1,5 +1,6 @@
 <!--pages/bazi/bazi.wxml-->
 <star-sky />
+<loading-progress show="{{loading}}" text="正在推算八字命盘..." icon="☯" />
 <view class="container">
   <view class="section-title">八字命理</view>
 

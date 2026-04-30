@@ -1,5 +1,6 @@
 <!--pages/meihua/meihua.wxml-->
 <star-sky />
+<loading-progress show="{{loading}}" text="正在推演卦象变化..." icon="☯" />
 <view class="container">
   <view class="section-title">梅花易数</view>
 

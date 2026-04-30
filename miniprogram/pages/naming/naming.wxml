@@ -1,5 +1,6 @@
 <!--pages/naming/naming.wxml-->
 <star-sky />
+<loading-progress show="{{loading}}" text="正在推算吉祥好名..." icon="💡" />
 <view class="container">
   <view class="section-title">起名取名</view>
 

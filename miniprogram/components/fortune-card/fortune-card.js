@@ -1,50 +1,20 @@
 // components/fortune-card/fortune-card.js
 Component({
   properties: {
-    // 卡片唯一标识
-    id: {
-      type: String,
-      value: ''
-    },
-    // 主标题
-    title: {
-      type: String,
-      value: ''
-    },
-    // 标签数组 [{type, name}]
-    tags: {
-      type: Array,
-      value: []
-    },
-    // 副标题
-    subtitle: {
-      type: String,
-      value: ''
-    },
-    // 状态 {text, color}
-    status: {
+    // 卡片数据对象
+    card: {
       type: Object,
-      value: null
+      value: {}
     },
-    // 正文内容（支持HTML）
-    content: {
-      type: String,
-      value: ''
-    },
-    // 默认最大显示行数
-    maxLines: {
-      type: Number,
-      value: 3
-    },
-    // 底部信息 {icon, text, count, action}
-    footer: {
-      type: Object,
-      value: null
-    },
-    // 默认是否展开
-    expanded: {
+    // 是否显示底部
+    showFooter: {
       type: Boolean,
-      value: false
+      value: true
+    },
+    // 是否显示进度条
+    showProgress: {
+      type: Boolean,
+      value: true
     }
   },
 
@@ -66,8 +36,9 @@ Component({
 
   lifetimes: {
     attached() {
+      const card = this.properties.card || {}
       this.setData({
-        isExpanded: this.data.expanded
+        isExpanded: card.expanded || false
       })
     }
   },
@@ -79,7 +50,7 @@ Component({
         isExpanded: !this.data.isExpanded
       })
       this.triggerEvent('expandChange', {
-        id: this.properties.id,
+        id: this.properties.card.id,
         expanded: this.data.isExpanded
       })
     },
@@ -92,18 +63,13 @@ Component({
 
     // 点击底部操作
     onFooterTap() {
-      if (this.properties.footer && this.properties.footer.action) {
+      const card = this.properties.card || {}
+      if (card.footer) {
         this.triggerEvent('footerTap', {
-          id: this.properties.id,
-          action: this.properties.footer.action
+          id: card.id,
+          action: card.footer.action
         })
       }
-    },
-
-    // 获取标签样式
-    getTagStyle(type) {
-      const colors = this.data.tagColors[type] || this.data.tagColors.general
-      return `background: ${colors.bg}; color: ${colors.text};`
     }
   }
 })

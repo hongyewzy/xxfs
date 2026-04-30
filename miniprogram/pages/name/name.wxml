@@ -1,5 +1,6 @@
 <!--pages/name/name.wxml-->
 <star-sky />
+<loading-progress show="{{loading}}" text="正在分析姓名五格..." icon="🔤" />
 <view class="container">
   <view class="section-title">姓名五格</view>
 

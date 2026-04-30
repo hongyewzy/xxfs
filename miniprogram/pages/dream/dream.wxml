@@ -1,5 +1,6 @@
 <!--pages/dream/dream.wxml-->
 <star-sky />
+<loading-progress show="{{loading}}" text="正在解析梦境寓意..." icon="🌙" />
 <view class="container">
   <view class="section-title">周公解梦</view>
 

@@ -20,8 +20,8 @@
   },
   "usingComponents": {
     "star-sky": "/components/star-sky/star-sky",
-    "analysis-card": "/components/analysis-card/analysis-card",
-    "fortune-card": "/components/fortune-card/fortune-card"
+    "fortune-card": "/components/fortune-card/fortune-card",
+    "loading-progress": "/components/loading-progress/loading-progress"
   },
   "tabBar": {
     "color": "#7a7a7a",
