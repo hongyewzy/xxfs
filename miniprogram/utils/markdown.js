@@ -18,9 +18,6 @@ function parseMarkdown(text) {
   // 加粗
   html = html.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
 
-  // 斜体（只在段落中使用，不在列表中）
-  html = html.replace(/\*([^*]+)\*/g, '<i>$1</i>')
-
   // 代码
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
 
