@@ -47,9 +47,9 @@ Page({
 
   parseToCards(result) {
     const cardConfigs = [
-      { keyword: '象征', icon: '🌙', title: '梦境象征' },
-      { keyword: '启示', icon: '🔮', title: '潜在启示' },
-      { keyword: '建议', icon: '💡', title: '行动建议' }
+      { keyword: '象征', title: '梦境象征', tags: [{ type: 'general', name: '综合' }, { type: 'emotion', name: '情绪' }] },
+      { keyword: '启示', title: '潜在启示', tags: [{ type: 'general', name: '综合' }, { type: 'mind', name: '思维' }] },
+      { keyword: '建议', title: '行动建议', tags: [{ type: 'career', name: '事业' }] }
     ]
 
     const lines = result.split('\n')
@@ -70,16 +70,19 @@ Page({
       if (matchedConfig) {
         // 保存之前的卡片
         if (currentCard) {
-          currentCard.content = currentContent.join('\n').trim()
+          currentCard.content = markdown.parseMarkdown(currentContent.join('\n').trim())
           cards.push(currentCard)
         }
         // 开始新卡片
         currentCard = {
           id: matchedConfig.keyword,
-          icon: matchedConfig.icon,
           title: matchedConfig.title,
-          summary: line.replace(/^[#\s]+/, '').trim(),
+          tags: matchedConfig.tags,
+          subtitle: this.data.dreamContent.slice(0, 20) + '...',
+          status: { text: '立即查看', color: '#00BCD4' },
           content: '',
+          maxLines: 3,
+          footer: { icon: '🌙', text: '梦友交流', count: Math.floor(Math.random() * 1500 + 300), action: '人做过类似梦' },
           expanded: cards.length === 0
         }
         currentContent = []
@@ -90,7 +93,7 @@ Page({
 
     // 保存最后一个卡片
     if (currentCard) {
-      currentCard.content = currentContent.join('\n').trim()
+      currentCard.content = markdown.parseMarkdown(currentContent.join('\n').trim())
       cards.push(currentCard)
     }
 
@@ -98,10 +101,13 @@ Page({
     if (cards.length === 0) {
       cards.push({
         id: 'default',
-        icon: '✨',
         title: '梦境解析',
-        summary: result.slice(0, 50) + '...',
-        content: result,
+        tags: [{ type: 'general', name: '综合' }],
+        subtitle: this.data.dreamContent.slice(0, 20) + '...',
+        status: { text: '立即查看', color: '#00BCD4' },
+        content: markdown.parseMarkdown(result),
+        maxLines: 3,
+        footer: { icon: '🌙', text: '梦友交流', count: Math.floor(Math.random() * 1500 + 300), action: '人做过类似梦' },
         expanded: true
       })
     }

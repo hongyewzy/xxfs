@@ -13,15 +13,12 @@
   </button>
 
   <!-- 梦境解析结果 - 折叠卡片形式 -->
-  <view class="analysis-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
-    <analysis-card
+  <view class="fortune-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
+    <view class="fortune-section-title">解梦结果</view>
+    <fortune-card
       wx:for="{{analysisCards}}"
-      cardId="{{item.id}}"
-      icon="{{item.icon}}"
-      title="{{item.title}}"
-      summary="{{item.summary}}"
-      content="{{item.content}}"
-      expanded="{{item.expanded}}"
+      wx:key="id"
+      card="{{item}}"
     />
   </view>
 </view>
