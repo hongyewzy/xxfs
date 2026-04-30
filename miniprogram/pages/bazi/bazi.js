@@ -182,43 +182,46 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keyword: '性格', icon: '📊', title: '性格分析' },
-      { keyword: '事业', icon: '💼', title: '事业运势' },
-      { keyword: '感情', icon: '❤️', title: '感情婚姻' },
-      { keyword: '健康', icon: '🏥', title: '健康注意' }
+      { keyword: '五行', title: '五行分析', tags: [{ type: 'general', name: '综合' }] },
+      { keyword: '性格', title: '性格特点', tags: [{ type: 'mind', name: '性格' }, { type: 'emotion', name: '情绪' }] },
+      { keyword: '事业', title: '事业运势', tags: [{ type: 'career', name: '事业' }, { type: 'wealth', name: '财运' }] },
+      { keyword: '感情', title: '感情婚姻', tags: [{ type: 'love', name: '爱情' }, { type: 'social', name: '人际' }] },
+      { keyword: '健康', title: '健康注意', tags: [{ type: 'health', name: '健康' }] }
     ]
 
+    const sections = aiResult.split(/^## /m).filter(s => s.trim())
+
     cardConfigs.forEach((config, index) => {
-      let content = ''
-
-      // 简单解析：查找包含关键词的段落
-      // 按 ## 分割内容
-      const sections = aiResult.split(/^## /m)
-      sections.forEach(section => {
-        if (section.includes(config.keyword)) {
-          content += section + '\n'
+      let matchedSection = ''
+      for (const section of sections) {
+        const lines = section.split('\n')
+        const title = lines[0].trim()
+        const body = lines.slice(1).join('\n')
+        if (title.includes(config.keyword) || body.includes(config.keyword)) {
+          matchedSection = section
+          break
         }
-      })
+      }
 
-      if (content) {
-        // 取第一句话作为摘要
-        const firstLine = content.split(/[。！？\n]/)[0]
-        const summary = firstLine ? (firstLine.length > 50 ? firstLine.substring(0, 50) + '...' : firstLine) : '点击查看详情'
-
-        // 解析为 HTML
-        const contentHtml = markdown.parseMarkdown(content)
+      if (matchedSection) {
+        let body = matchedSection.split('\n').slice(1).join('\n').trim()
+        body = body.replace(/^#{1,6}\s*.+$/gm, '').trim()
+        body = body.replace(/\n{3,}/g, '\n\n')
+        const contentHtml = markdown.parseMarkdown(body)
 
         cards.push({
           id: config.keyword,
-          icon: config.icon,
           title: config.title,
-          summary: summary,
+          tags: config.tags,
+          subtitle: '',
+          status: { text: '点击查看', color: '#B8962E' },
           content: contentHtml,
-          expanded: index === 0 // 第一个默认展开
+          maxLines: 3,
+          footer: { icon: '💬', text: '同类交流', count: Math.floor(Math.random() * 2000 + 500), action: '人正在讨论' },
+          expanded: index === 0
         })
       }
     })
-
     return cards
   }
 })

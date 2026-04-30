@@ -104,17 +104,63 @@
       </view>
     </view>
 
-    <!-- AI 解读 - 折叠卡片形式 -->
-    <view class="analysis-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
-      <analysis-card
+    <!-- 四柱解释 -->
+    <view class="card">
+      <view class="card-title">四柱含义</view>
+      <view class="pillar-explain">
+        <view class="explain-item">
+          <text class="explain-label">年柱</text>
+          <text class="explain-desc">代表祖上、父母、童年时期（0-20岁）</text>
+        </view>
+        <view class="explain-item">
+          <text class="explain-label">月柱</text>
+          <text class="explain-desc">代表父母宫、事业发展期（20-40岁）</text>
+        </view>
+        <view class="explain-item">
+          <text class="explain-label">日柱</text>
+          <text class="explain-desc">代表本人、配偶（40-60岁）</text>
+        </view>
+        <view class="explain-item">
+          <text class="explain-label">时柱</text>
+          <text class="explain-desc">代表子女、晚年运势（60岁后）</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 五行解释 -->
+    <view class="card">
+      <view class="card-title">五行含义</view>
+      <view class="wuxing-explain">
+        <view class="explain-item">
+          <text class="wuxing-tag jin">金</text>
+          <text class="explain-desc">刚毅、果断、义气；喜土、金，忌火、木</text>
+        </view>
+        <view class="explain-item">
+          <text class="wuxing-tag mu">木</text>
+          <text class="explain-desc">仁慈、生长、创新；喜水、木，忌金、土</text>
+        </view>
+        <view class="explain-item">
+          <text class="wuxing-tag shui">水</text>
+          <text class="explain-desc">智慧、灵活、适应力；喜金、水，忌土、火</text>
+        </view>
+        <view class="explain-item">
+          <text class="wuxing-tag huo">火</text>
+          <text class="explain-desc">热情、活力、冲动；喜木、火，忌水、金</text>
+        </view>
+        <view class="explain-item">
+          <text class="wuxing-tag tu">土</text>
+          <text class="explain-desc">诚信、稳定、厚重；喜火、土，忌木、水</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 运势解读卡片 -->
+    <view class="fortune-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
+      <view class="fortune-section-title">八字解读</view>
+      <fortune-card
         wx:for="{{analysisCards}}"
-        cardId="{{item.id}}"
-        icon="{{item.icon}}"
-        title="{{item.title}}"
-        summary="{{item.summary}}"
-        content="{{item.content}}"
-        expanded="{{item.expanded}}"
-        showCopy="{{true}}"
+        wx:key="id"
+        card="{{item}}"
       />
     </view>
   </view>
