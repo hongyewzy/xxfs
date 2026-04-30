@@ -97,9 +97,9 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keyword: '牌面', icon: '🎴', title: '牌面解读' },
-      { keyword: '综合', icon: '📖', title: '综合建议' },
-      { keyword: '行动', icon: '⚡', title: '行动指引' }
+      { keyword: '牌面', title: '牌面解读', tags: [{ type: 'general', name: '综合' }] },
+      { keyword: '综合', title: '综合建议', tags: [{ type: 'general', name: '综合' }, { type: 'mind', name: '思维' }] },
+      { keyword: '行动', title: '行动指引', tags: [{ type: 'career', name: '事业' }] }
     ]
 
     cardConfigs.forEach((config, index) => {
@@ -112,16 +112,19 @@ Page({
       })
 
       if (content) {
-        const firstLine = content.split(/[。！？\n]/)[0]
-        const summary = firstLine ? (firstLine.length > 50 ? firstLine.substring(0, 50) + '...' : firstLine) : '点击查看详情'
-        const contentHtml = markdown.parseMarkdown(content)
+        // 去掉标题行
+        let body = content.replace(/^##\s*.+\n?/m, '').trim()
+        const contentHtml = markdown.parseMarkdown(body)
 
         cards.push({
           id: config.keyword,
-          icon: config.icon,
           title: config.title,
-          summary: summary,
+          tags: config.tags,
+          subtitle: this.data.drawnCards.map(c => c.name).join('、'),
+          status: { text: '详细解读', color: '#9C27B0' },
           content: contentHtml,
+          maxLines: 3,
+          footer: { icon: '🔮', text: '塔罗交流', count: Math.floor(Math.random() * 1000 + 200), action: '人正在讨论' },
           expanded: index === 0
         })
       }
