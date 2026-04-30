@@ -109,7 +109,6 @@ Page({
           status: { text: '立即查看', color: '#00BCD4' },
           content: contentHtml,
           maxLines: 3,
-          footer: { icon: '🌙', text: '梦友交流', count: Math.floor(Math.random() * 1500 + 300), action: '人做过类似梦' },
           expanded: index === 0
         })
       }
@@ -134,7 +133,6 @@ Page({
             status: { text: '立即查看', color: '#00BCD4' },
             content: markdown.parseMarkdown(body),
             maxLines: 3,
-            footer: { icon: '🌙', text: '梦友交流', count: Math.floor(Math.random() * 1500 + 300), action: '人做过类似梦' },
             expanded: index === 0
           })
         }
@@ -150,7 +148,6 @@ Page({
         status: { text: '立即查看', color: '#00BCD4' },
         content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
-        footer: { icon: '🌙', text: '梦友交流', count: Math.floor(Math.random() * 1500 + 300), action: '人做过类似梦' },
         expanded: true
       })
     }
