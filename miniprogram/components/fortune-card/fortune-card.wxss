@@ -1,0 +1,136 @@
+/* components/fortune-card/fortune-card.wxss */
+
+/* 卡片容器 */
+.fortune-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.08);
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  position: relative;
+}
+
+/* 顶部彩色标签区域 */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.tag-item {
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 100rpx;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* 卡片头部 */
+.card-header {
+  margin-bottom: 16rpx;
+}
+
+.card-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #1a1a1a;
+  line-height: 1.4;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+/* 金色渐变进度条装饰 */
+.gold-progress {
+  width: 200rpx;
+  height: 6rpx;
+  background: linear-gradient(90deg, #B8962E 0%, #D4A84B 50%, #F0D878 100%);
+  border-radius: 3rpx;
+}
+
+/* 副标题区 */
+.card-subtitle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.subtitle-text {
+  font-size: 28rpx;
+  color: #666666;
+  font-weight: 400;
+}
+
+.status-text {
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+/* 正文内容 */
+.card-content {
+  position: relative;
+}
+
+.card-content.collapsed {
+  max-height: calc(3 * 1.8em);
+  overflow: hidden;
+}
+
+.card-content.expanded {
+  max-height: none;
+}
+
+.content-text {
+  font-size: 30rpx;
+  color: #333333;
+  line-height: 1.8;
+}
+
+/* 展开/收起链接 */
+.expand-link {
+  margin-top: 16rpx;
+  text-align: right;
+}
+
+.expand-link text {
+  font-size: 28rpx;
+  color: #2196F3;
+  font-weight: 500;
+}
+
+/* 底部信息栏 */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #F0F0F0;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.footer-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.footer-text {
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.footer-count {
+  font-size: 24rpx;
+  color: #BBBBBB;
+}

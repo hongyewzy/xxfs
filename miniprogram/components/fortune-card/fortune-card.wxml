@@ -1,0 +1,69 @@
+<!-- components/fortune-card/fortune-card.wxml -->
+<view class="fortune-card">
+  <!-- 顶部彩色标签区域 -->
+  <view class="card-tags" wx:if="{{tags && tags.length > 0}}">
+    <view
+      class="tag-item"
+      wx:for="{{tags}}"
+      wx:key="index"
+      style="background: {{tagColors[item.type].bg}}; color: {{tagColors[item.type].text}};"
+      bindtap="onTagTap"
+      data-type="{{item.type}}"
+      data-name="{{item.name}}"
+    >
+      {{item.name}}
+    </view>
+  </view>
+
+  <!-- 卡片头部 -->
+  <view class="card-header">
+    <text class="card-title">{{title}}</text>
+    <!-- 金色渐变进度条装饰 -->
+    <view class="gold-progress"></view>
+  </view>
+
+  <!-- 副标题区：左侧小标题 + 右侧状态文字 -->
+  <view class="card-subtitle-wrap" wx:if="{{subtitle || status}}">
+    <text class="subtitle-text" wx:if="{{subtitle}}">{{subtitle}}</text>
+    <text
+      class="status-text"
+      wx:if="{{status}}"
+      style="color: {{status.color || '#666'}};"
+    >{{status.text}}</text>
+  </view>
+
+  <!-- 正文内容 -->
+  <view class="card-content {{isExpanded ? 'expanded' : 'collapsed'}}">
+    <rich-text class="content-text" nodes="{{content}}"></rich-text>
+  </view>
+
+  <!-- 展开/收起链接 -->
+  <view
+    class="expand-link"
+    wx:if="{{content}}"
+    bindtap="toggleExpand"
+  >
+    <text wx:if="{{!isExpanded}}">...全文</text>
+    <text wx:else>收起</text>
+  </view>
+
+  <!-- 底部信息栏 -->
+  <view
+    class="card-footer"
+    wx:if="{{footer}}"
+    bindtap="onFooterTap"
+  >
+    <view class="footer-left">
+      <image
+        wx:if="{{footer.icon}}"
+        class="footer-icon"
+        src="{{footer.icon}}"
+        mode="aspectFit"
+      />
+      <text class="footer-text">{{footer.text}}</text>
+    </view>
+    <view class="footer-right" wx:if="{{footer.count !== undefined}}">
+      <text class="footer-count">{{footer.count}}人讨论</text>
+    </view>
+  </view>
+</view>
