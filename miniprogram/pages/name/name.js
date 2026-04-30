@@ -73,9 +73,9 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keyword: '数理', icon: '📈', title: '数理分析' },
-      { keyword: '三才', icon: '🔢', title: '三才配置' },
-      { keyword: '建议', icon: '💡', title: '改名建议' }
+      { keyword: '数理', title: '数理分析', tags: [{ type: 'general', name: '综合' }] },
+      { keyword: '三才', title: '三才配置', tags: [{ type: 'general', name: '综合' }, { type: 'mind', name: '思维' }] },
+      { keyword: '建议', title: '改名建议', tags: [{ type: 'career', name: '事业' }] }
     ]
 
     cardConfigs.forEach((config, index) => {
@@ -88,20 +88,36 @@ Page({
       })
 
       if (content) {
-        const firstLine = content.split(/[。！？\n]/)[0]
-        const summary = firstLine ? (firstLine.length > 50 ? firstLine.substring(0, 50) + '...' : firstLine) : '点击查看详情'
         const contentHtml = markdown.parseMarkdown(content)
 
         cards.push({
           id: config.keyword,
-          icon: config.icon,
           title: config.title,
-          summary: summary,
+          tags: config.tags,
+          subtitle: this.data.name,
+          status: { text: '详细分析', color: '#2196F3' },
           content: contentHtml,
+          maxLines: 3,
+          footer: { icon: '🔤', text: '姓名交流', count: Math.floor(Math.random() * 1200 + 200), action: '人正在讨论' },
           expanded: index === 0
         })
       }
     })
+
+    // 如果没有匹配到任何配置，创建一个默认卡片
+    if (cards.length === 0 && aiResult) {
+      cards.push({
+        id: 'default',
+        title: '姓名分析',
+        tags: [{ type: 'general', name: '综合' }],
+        subtitle: this.data.name,
+        status: { text: '详细分析', color: '#2196F3' },
+        content: markdown.parseMarkdown(aiResult),
+        maxLines: 3,
+        footer: { icon: '🔤', text: '姓名交流', count: Math.floor(Math.random() * 1200 + 200), action: '人正在讨论' },
+        expanded: true
+      })
+    }
 
     return cards
   }

@@ -108,9 +108,9 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keyword: '寓意', icon: '📛', title: '名字寓意' },
-      { keyword: '五行', icon: '✨', title: '五行能量' },
-      { keyword: '适合', icon: '🎯', title: '适合方向' }
+      { keyword: '寓意', title: '名字寓意', tags: [{ type: 'general', name: '综合' }] },
+      { keyword: '五行', title: '五行能量', tags: [{ type: 'general', name: '综合' }, { type: 'emotion', name: '情绪' }] },
+      { keyword: '适合', title: '适合方向', tags: [{ type: 'career', name: '事业' }] }
     ]
 
     cardConfigs.forEach((config, index) => {
@@ -123,16 +123,17 @@ Page({
       })
 
       if (content) {
-        const firstLine = content.split(/[。！？\n]/)[0]
-        const summary = firstLine ? (firstLine.length > 50 ? firstLine.substring(0, 50) + '...' : firstLine) : '点击查看详情'
         const contentHtml = markdown.parseMarkdown(content)
 
         cards.push({
           id: config.keyword,
-          icon: config.icon,
           title: config.title,
-          summary: summary,
+          tags: config.tags,
+          subtitle: this.data.selectedName,
+          status: { text: '名字分析', color: '#4CAF50' },
           content: contentHtml,
+          maxLines: 3,
+          footer: { icon: '💡', text: '起名交流', count: Math.floor(Math.random() * 1500 + 300), action: '人正在讨论' },
           expanded: index === 0
         })
       }
@@ -140,14 +141,15 @@ Page({
 
     // 如果没有匹配到任何配置，创建一个默认卡片
     if (cards.length === 0 && aiResult) {
-      const firstLine = aiResult.split(/[。！？\n]/)[0]
-      const summary = firstLine ? (firstLine.length > 50 ? firstLine.substring(0, 50) + '...' : firstLine) : '点击查看详情'
       cards.push({
         id: 'default',
-        icon: '📛',
         title: '名字分析',
-        summary: summary,
+        tags: [{ type: 'general', name: '综合' }],
+        subtitle: this.data.selectedName,
+        status: { text: '名字分析', color: '#4CAF50' },
         content: markdown.parseMarkdown(aiResult),
+        maxLines: 3,
+        footer: { icon: '💡', text: '起名交流', count: Math.floor(Math.random() * 1500 + 300), action: '人正在讨论' },
         expanded: true
       })
     }

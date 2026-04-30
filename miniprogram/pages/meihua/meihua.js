@@ -109,9 +109,9 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keyword: '卦象', icon: '☯', title: '卦象解读' },
-      { keyword: '变化', icon: '🔄', title: '变化分析' },
-      { keyword: '应对', icon: '🧭', title: '应对建议' }
+      { keyword: '卦象', title: '卦象解读', tags: [{ type: 'general', name: '综合' }] },
+      { keyword: '变化', title: '变化分析', tags: [{ type: 'mind', name: '思维' }] },
+      { keyword: '应对', title: '应对建议', tags: [{ type: 'career', name: '事业' }] }
     ]
 
     cardConfigs.forEach((config, index) => {
@@ -124,20 +124,36 @@ Page({
       })
 
       if (content) {
-        const firstLine = content.split(/[。！？\n]/)[0]
-        const summary = firstLine ? (firstLine.length > 50 ? firstLine.substring(0, 50) + '...' : firstLine) : '点击查看详情'
         const contentHtml = markdown.parseMarkdown(content)
 
         cards.push({
           id: config.keyword,
-          icon: config.icon,
           title: config.title,
-          summary: summary,
+          tags: config.tags,
+          subtitle: this.data.result ? `${this.data.result.originalGua.name} → ${this.data.result.changedGua.name}` : '',
+          status: { text: '卦象解读', color: '#B8962E' },
           content: contentHtml,
+          maxLines: 3,
+          footer: { icon: '☯', text: '易友交流', count: Math.floor(Math.random() * 800 + 100), action: '人正在讨论' },
           expanded: index === 0
         })
       }
     })
+
+    // 如果没有匹配到任何配置，创建一个默认卡片
+    if (cards.length === 0 && aiResult) {
+      cards.push({
+        id: 'default',
+        title: '卦象解读',
+        tags: [{ type: 'general', name: '综合' }],
+        subtitle: this.data.result ? `${this.data.result.originalGua.name} → ${this.data.result.changedGua.name}` : '',
+        status: { text: '卦象解读', color: '#B8962E' },
+        content: markdown.parseMarkdown(aiResult),
+        maxLines: 3,
+        footer: { icon: '☯', text: '易友交流', count: Math.floor(Math.random() * 800 + 100), action: '人正在讨论' },
+        expanded: true
+      })
+    }
 
     return cards
   }
