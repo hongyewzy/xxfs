@@ -4,7 +4,7 @@
   <!-- 顶部标题 -->
   <view class="header">
     <view class="logo-container">
-      <text class="logo-text">天机阁</text>
+      <text class="logo-text">天机算算</text>
       <text class="logo-subtitle">洞悉天机 · 把握命运</text>
     </view>
   </view>
