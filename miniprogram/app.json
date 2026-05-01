@@ -3,13 +3,21 @@
     "pages/index/index",
     "pages/bazi/bazi",
     "pages/lunar/lunar",
-    "pages/tarot/tarot",
     "pages/dream/dream",
     "pages/name/name",
     "pages/naming/naming",
     "pages/meihua/meihua",
     "pages/history/history",
     "pages/history-detail/history-detail"
+  ],
+  "subpackages": [
+    {
+      "root": "packageTarot",
+      "name": "tarot",
+      "pages": [
+        "pages/tarot/tarot"
+      ]
+    }
   ],
   "window": {
     "navigationBarBackgroundColor": "#f5f3f0",

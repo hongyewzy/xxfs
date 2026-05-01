@@ -5,7 +5,7 @@
 
   <view class="card">
     <view class="card-title">姓氏</view>
-    <input class="input-field" placeholder="请输入姓氏" value="{{surname}}" bindinput="onSurnameInput" maxlength="2" />
+    <input class="input-field" placeholder="请输入姓氏（如：王、李、张）" value="{{surname}}" bindinput="onSurnameInput" maxlength="2" />
   </view>
 
   <view class="card">
@@ -18,16 +18,23 @@
 
   <loading-progress show="{{loading}}" text="正在推算吉祥好名..." icon="💡" />
   <button class="btn-primary mt-30" bindtap="generate" disabled="{{loading || !surname}}">
-    {{loading ? '生成中...' : '生成名字'}}
+    {{loading ? '推算中...' : '开始推算'}}
   </button>
 
   <view class="card" wx:if="{{suggestions.length > 0}}">
     <view class="card-title">推荐名字</view>
     <view class="name-list">
       <view class="name-item" wx:for="{{suggestions}}" wx:key="name" bindtap="selectName" data-name="{{item.name}}">
-        <text class="name-text">{{item.name}}</text>
-        <text class="name-desc">{{item.desc}}</text>
-        <text class="name-score">{{item.score}}分</text>
+        <view class="name-header">
+          <text class="name-text">{{item.name}}</text>
+          <text class="name-score">{{item.score}}分</text>
+        </view>
+        <view class="name-info">
+          <text class="name-desc">{{item.desc}}</text>
+        </view>
+        <view class="name-meaning">
+          <text class="meaning-text">{{item.meaning}}</text>
+        </view>
       </view>
     </view>
   </view>

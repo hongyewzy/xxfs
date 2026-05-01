@@ -16,7 +16,7 @@
         <text class="style-card-title">今日运势</text>
         <view class="fortune-switch">
           <view class="switch-item {{fortuneType === 'zodiac' ? 'active' : ''}}" bindtap="switchFortuneType" data-type="zodiac">星座</view>
-          <view class="switch-item {{fortuneType === 'bazi' ? 'active' : ''}}" bindtap="switchFortuneType" data-type="bazi">八字</view>
+          <view class="switch-item {{fortuneType === 'shengxiao' ? 'active' : ''}}" bindtap="switchFortuneType" data-type="shengxiao">生肖</view>
         </view>
       </view>
 
@@ -28,15 +28,13 @@
         </view>
       </picker>
 
-      <!-- 八字选择（简化版：只选年份） -->
-      <view class="bazi-input" wx:if="{{fortuneType === 'bazi'}}">
-        <picker mode="selector" range="{{years}}" value="{{yearIndex}}" bindchange="onYearChange">
-          <view class="fortune-picker">
-            <text class="picker-value">{{years[yearIndex]}}年</text>
-            <text class="picker-arrow">▼</text>
-          </view>
-        </picker>
-      </view>
+      <!-- 生肖选择 -->
+      <picker mode="selector" range="{{shengxiaoList}}" value="{{shengxiaoIndex}}" bindchange="onShengxiaoChange" wx:if="{{fortuneType === 'shengxiao'}}">
+        <view class="fortune-picker">
+          <text class="picker-value">{{shengxiaoList[shengxiaoIndex]}}</text>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
 
       <!-- 运势展示 -->
       <view class="fortune-result" wx:if="{{fortune}}">
@@ -72,7 +70,7 @@
         <view class="icon bazi-icon">命</view>
         <text class="name">八字命理</text>
       </view>
-      <view class="function-item" bindtap="navigateTo" data-url="/pages/tarot/tarot">
+      <view class="function-item" bindtap="navigateTo" data-url="/packageTarot/pages/tarot/tarot">
         <view class="icon tarot-icon">塔</view>
         <text class="name">塔罗占卜</text>
       </view>

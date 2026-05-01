@@ -170,7 +170,6 @@ Page({
           status: { text: '卦象解读', color: '#B8962E' },
           content: contentHtml,
           maxLines: 3,
-          footer: { icon: '☯', text: '易友交流', count: Math.floor(Math.random() * 800 + 100), action: '人正在讨论' },
           expanded: index === 0
         })
       }
@@ -195,7 +194,6 @@ Page({
             status: { text: '卦象解读', color: '#B8962E' },
             content: markdown.parseMarkdown(body),
             maxLines: 3,
-            footer: { icon: '☯', text: '易友交流', count: Math.floor(Math.random() * 800 + 100), action: '人正在讨论' },
             expanded: index === 0
           })
         }
@@ -211,7 +209,6 @@ Page({
         status: { text: '卦象解读', color: '#B8962E' },
         content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
-        footer: { icon: '☯', text: '易友交流', count: Math.floor(Math.random() * 800 + 100), action: '人正在讨论' },
         expanded: true
       })
     }

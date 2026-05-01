@@ -1,7 +1,7 @@
 // pages/tarot/tarot.js
-const tarotData = require('../../utils/tarot-data')
-const aiApi = require('../../utils/ai-api')
-const markdown = require('../../utils/markdown')
+const tarotData = require('/utils/tarot-data')
+const aiApi = require('/utils/ai-api')
+const markdown = require('/utils/markdown')
 
 Page({
   data: {
@@ -158,7 +158,6 @@ Page({
           status: { text: '详细解读', color: '#9C27B0' },
           content: contentHtml,
           maxLines: 3,
-          footer: { icon: '🔮', text: '塔罗交流', count: Math.floor(Math.random() * 1000 + 200), action: '人正在讨论' },
           expanded: index === 0
         })
       }
@@ -183,7 +182,6 @@ Page({
             status: { text: '详细解读', color: '#9C27B0' },
             content: markdown.parseMarkdown(body),
             maxLines: 3,
-            footer: { icon: '🔮', text: '塔罗交流', count: Math.floor(Math.random() * 1000 + 200), action: '人正在讨论' },
             expanded: index === 0
           })
         }
@@ -199,7 +197,6 @@ Page({
         status: { text: '详细解读', color: '#9C27B0' },
         content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
-        footer: { icon: '🔮', text: '塔罗交流', count: Math.floor(Math.random() * 1000 + 200), action: '人正在讨论' },
         expanded: true
       })
     }

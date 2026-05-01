@@ -57,14 +57,10 @@
 
 /* 八字展示 */
 .bazi-display {
-  padding: 30rpx 0;
-}
-
-.bazi-row {
   display: flex;
-  justify-content: center;
-  gap: 20rpx;
-  margin-bottom: 20rpx;
+  justify-content: space-between;
+  padding: 30rpx 10rpx;
+  gap: 16rpx;
 }
 
 .bazi-pillar {
@@ -74,28 +70,29 @@
   background: #ffffff;
   border: 1rpx solid var(--border-gold);
   border-radius: 16rpx;
-  padding: 24rpx 28rpx;
-  min-width: 140rpx;
+  padding: 20rpx 16rpx;
+  flex: 1;
+  min-width: 0;
 }
 
 .bazi-pillar .gan {
-  font-size: 56rpx;
+  font-size: 48rpx;
   color: var(--gold-primary);
   font-weight: 600;
   line-height: 1.2;
 }
 
 .bazi-pillar .zhi {
-  font-size: 56rpx;
+  font-size: 48rpx;
   color: var(--text-primary);
   font-weight: 600;
   line-height: 1.2;
 }
 
 .bazi-pillar .label {
-  font-size: 22rpx;
+  font-size: 20rpx;
   color: var(--text-muted);
-  margin-top: 12rpx;
+  margin-top: 10rpx;
   letter-spacing: 2rpx;
 }
 

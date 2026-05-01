@@ -250,7 +250,6 @@ Page({
           title: config.title,
           tags: config.tags,
           subtitle: '',
-          status: { text: '点击查看', color: '#B8962E' },
           content: contentHtml,
           maxLines: 3,
           expanded: index === 0
@@ -275,7 +274,6 @@ Page({
             title: title || `解读 ${index + 1}`,
             tags: [{ type: 'general', name: '综合' }],
             subtitle: '',
-            status: { text: '点击查看', color: '#B8962E' },
             content: contentHtml,
             maxLines: 3,
             expanded: index === 0
@@ -291,7 +289,6 @@ Page({
         title: '八字解读',
         tags: [{ type: 'general', name: '综合' }],
         subtitle: '',
-        status: { text: '点击查看', color: '#B8962E' },
         content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
         expanded: true

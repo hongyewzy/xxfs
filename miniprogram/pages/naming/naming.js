@@ -3,15 +3,75 @@ const nameWuge = require('../../utils/name-wuge')
 const aiApi = require('../../utils/ai-api')
 const markdown = require('../../utils/markdown')
 
-// 常用吉祥字
+// 常用吉祥字及其寓意
 const GOOD_CHARS = [
-  '明', '华', '文', '建', '国', '海', '强', '志', '伟', '军',
-  '平', '东', '辉', '刚', '永', '成', '飞', '亮', '俊', '浩',
-  '宇', '泽', '豪', '毅', '鑫', '阳', '勇', '杰', '峰', '坤',
-  '婷', '雪', '芳', '敏', '静', '丽', '莉', '琳', '萍', '慧',
-  '颖', '洁', '思', '嘉', '欣', '怡', '雅', '梦', '琪', '佳',
-  '涵', '萱', '蕊', '薇', '馨', '然', '诗', '瑶', '瑜', '妍'
+  { char: '明', meaning: '光明、聪明、明理' },
+  { char: '华', meaning: '华丽、才华、繁荣' },
+  { char: '文', meaning: '文雅、学识、才华' },
+  { char: '建', meaning: '建设、成就、事业' },
+  { char: '国', meaning: '国家、宏大、稳重' },
+  { char: '海', meaning: '博大、胸怀、深邃' },
+  { char: '强', meaning: '强壮、坚强、有力' },
+  { char: '志', meaning: '志向、意志、决心' },
+  { char: '伟', meaning: '伟大、宏伟、杰出' },
+  { char: '军', meaning: '威武、果敢、刚毅' },
+  { char: '平', meaning: '平和、安稳、公正' },
+  { char: '东', meaning: '东方、朝气、希望' },
+  { char: '辉', meaning: '光辉、辉煌、灿烂' },
+  { char: '刚', meaning: '刚强、坚毅、正直' },
+  { char: '永', meaning: '永恒、长久、坚定' },
+  { char: '成', meaning: '成功、成就、圆满' },
+  { char: '飞', meaning: '飞翔、进取、自由' },
+  { char: '亮', meaning: '明亮、出众、光明' },
+  { char: '俊', meaning: '俊秀、才智、杰出' },
+  { char: '浩', meaning: '浩大、广阔、正气' },
+  { char: '宇', meaning: '宇宙、气度、胸怀' },
+  { char: '泽', meaning: '恩泽、润泽、仁慈' },
+  { char: '豪', meaning: '豪迈、豪爽、大气' },
+  { char: '毅', meaning: '毅力、坚毅、果敢' },
+  { char: '鑫', meaning: '财富、兴盛、多金' },
+  { char: '阳', meaning: '阳光、开朗、温暖' },
+  { char: '勇', meaning: '勇敢、勇猛、无畏' },
+  { char: '杰', meaning: '杰出、才华、优异' },
+  { char: '峰', meaning: '高峰、顶峰、卓越' },
+  { char: '坤', meaning: '大地、厚重、稳重' },
+  { char: '婷', meaning: '婷婷、优美、端庄' },
+  { char: '雪', meaning: '纯洁、高雅、清白' },
+  { char: '芳', meaning: '芬芳、美好、德行' },
+  { char: '敏', meaning: '敏捷、聪敏、机智' },
+  { char: '静', meaning: '安静、宁静、沉稳' },
+  { char: '丽', meaning: '美丽、秀丽、出众' },
+  { char: '莉', meaning: '茉莉、清新、芳香' },
+  { char: '琳', meaning: '美玉、珍贵、优雅' },
+  { char: '萍', meaning: '平安、柔和、自在' },
+  { char: '慧', meaning: '智慧、聪慧、明理' },
+  { char: '颖', meaning: '聪颖、新颖、出众' },
+  { char: '洁', meaning: '纯洁、清白、高洁' },
+  { char: '思', meaning: '思考、思想、睿智' },
+  { char: '嘉', meaning: '美好、嘉奖、优秀' },
+  { char: '欣', meaning: '欣喜、快乐、欣欣向荣' },
+  { char: '怡', meaning: '怡然、愉悦、舒适' },
+  { char: '雅', meaning: '高雅、文雅、优雅' },
+  { char: '梦', meaning: '梦想、美好、憧憬' },
+  { char: '琪', meaning: '美玉、珍奇、宝贵' },
+  { char: '佳', meaning: '美好、优秀、上佳' },
+  { char: '涵', meaning: '涵养、包容、内涵' },
+  { char: '萱', meaning: '萱草、忘忧、快乐' },
+  { char: '蕊', meaning: '花蕊、芬芳、娇美' },
+  { char: '薇', meaning: '紫薇、高雅、柔美' },
+  { char: '馨', meaning: '温馨、芳香、美好' },
+  { char: '然', meaning: '自然、安然、从容' },
+  { char: '诗', meaning: '诗意、文雅、才情' },
+  { char: '瑶', meaning: '美玉、珍贵、美好' },
+  { char: '瑜', meaning: '美玉、品德、优秀' },
+  { char: '妍', meaning: '美丽、妍丽、娇美' }
 ]
+
+// 获取字的寓意
+function getCharMeaning(char) {
+  const found = GOOD_CHARS.find(c => c.char === char)
+  return found ? found.meaning : '美好寓意'
+}
 
 Page({
   data: {
@@ -33,44 +93,71 @@ Page({
     this.setData({ nameCount: parseInt(e.currentTarget.dataset.count), suggestions: [], selectedName: '' })
   },
 
-  async generate() {
-    if (!this.data.surname) return
+  generate() {
+    console.log('generate called, surname:', this.data.surname)
+
+    if (!this.data.surname) {
+      wx.showToast({ title: '请输入姓氏', icon: 'none' })
+      return
+    }
 
     this.setData({ loading: true, suggestions: [], selectedName: '' })
 
-    try {
-      const suggestions = []
+    const suggestions = []
+    const maxAttempts = 100
+    let attempts = 0
 
-      // 生成候选名字
-      for (let i = 0; i < 10; i++) {
-        let name
-        if (this.data.nameCount === 1) {
-          const char = GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)]
-          name = this.data.surname + char
-        } else {
-          const char1 = GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)]
-          const char2 = GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)]
-          name = this.data.surname + char1 + char2
-        }
+    // 生成候选名字
+    while (suggestions.length < 5 && attempts < maxAttempts) {
+      attempts++
+      let nameChars = []
+      if (this.data.nameCount === 1) {
+        nameChars = [GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)]]
+      } else {
+        nameChars = [
+          GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)],
+          GOOD_CHARS[Math.floor(Math.random() * GOOD_CHARS.length)]
+        ]
+      }
 
+      const name = this.data.surname + nameChars.map(c => c.char).join('')
+
+      // 检查是否已存在
+      if (suggestions.some(s => s.name === name)) continue
+
+      try {
         const analysis = nameWuge.analyzeName(name)
-        if (analysis.score >= 70) {
+        console.log('analyzing:', name, 'score:', analysis.score)
+
+        // 降低分数门槛到60分
+        if (analysis.score >= 60) {
+          // 生成名字寓意介绍
+          const nameMeanings = nameChars.map(c => `${c.char}：${c.meaning}`).join('；')
+          const fullNameMeaning = nameChars.map(c => c.meaning.split('、')[0]).join('、')
+
           suggestions.push({
             name,
             score: analysis.score,
-            desc: `${analysis.sancai.config} · ${analysis.sancai.jixiong}`
+            desc: `${analysis.sancai.config} · ${analysis.sancai.jixiong}`,
+            meaning: `${fullNameMeaning}。${nameMeanings}`
           })
         }
+      } catch (err) {
+        console.error('analyze error:', err)
       }
+    }
 
-      // 按分数排序
-      suggestions.sort((a, b) => b.score - a.score)
+    console.log('generated suggestions:', suggestions.length)
+
+    // 按分数排序
+    suggestions.sort((a, b) => b.score - a.score)
+
+    this.setData({ loading: false })
+
+    if (suggestions.length === 0) {
+      wx.showToast({ title: '未找到合适名字，请换个姓氏试试', icon: 'none' })
+    } else {
       this.setData({ suggestions: suggestions.slice(0, 5) })
-
-    } catch (err) {
-      wx.showToast({ title: '生成失败', icon: 'error' })
-    } finally {
-      this.setData({ loading: false })
     }
   },
 
@@ -169,7 +256,6 @@ Page({
           status: { text: '名字分析', color: '#4CAF50' },
           content: contentHtml,
           maxLines: 3,
-          footer: { icon: '💡', text: '起名交流', count: Math.floor(Math.random() * 1500 + 300), action: '人正在讨论' },
           expanded: index === 0
         })
       }
@@ -194,7 +280,6 @@ Page({
             status: { text: '名字分析', color: '#4CAF50' },
             content: markdown.parseMarkdown(body),
             maxLines: 3,
-            footer: { icon: '💡', text: '起名交流', count: Math.floor(Math.random() * 1500 + 300), action: '人正在讨论' },
             expanded: index === 0
           })
         }
@@ -210,7 +295,6 @@ Page({
         status: { text: '名字分析', color: '#4CAF50' },
         content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
-        footer: { icon: '💡', text: '起名交流', count: Math.floor(Math.random() * 1500 + 300), action: '人正在讨论' },
         expanded: true
       })
     }

@@ -9,7 +9,7 @@
         <view class="progress-fill" style="width: {{percent}}%;"></view>
       </view>
       <text class="progress-text">{{text}}</text>
-      <text class="progress-hint" wx:if="{{showHint}}">AI 正在努力推算中，请耐心等待...</text>
+      <text class="progress-hint" wx:if="{{showHint}}">正在推算天机，请耐心等待...</text>
     </view>
   </view>
 </view>

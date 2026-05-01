@@ -135,7 +135,6 @@ Page({
           status: { text: '详细分析', color: '#2196F3' },
           content: contentHtml,
           maxLines: 3,
-          footer: { icon: '🔤', text: '姓名交流', count: Math.floor(Math.random() * 1200 + 200), action: '人正在讨论' },
           expanded: index === 0
         })
       }
@@ -160,7 +159,6 @@ Page({
             status: { text: '详细分析', color: '#2196F3' },
             content: markdown.parseMarkdown(body),
             maxLines: 3,
-            footer: { icon: '🔤', text: '姓名交流', count: Math.floor(Math.random() * 1200 + 200), action: '人正在讨论' },
             expanded: index === 0
           })
         }
@@ -176,7 +174,6 @@ Page({
         status: { text: '详细分析', color: '#2196F3' },
         content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
-        footer: { icon: '🔤', text: '姓名交流', count: Math.floor(Math.random() * 1200 + 200), action: '人正在讨论' },
         expanded: true
       })
     }

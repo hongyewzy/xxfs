@@ -7,6 +7,13 @@ const zodiacSigns = [
   '射手座', '摩羯座', '水瓶座', '双鱼座'
 ];
 
+// 生肖列表
+const shengxiaoList = [
+  '鼠', '牛', '虎', '兔',
+  '龙', '蛇', '马', '羊',
+  '猴', '鸡', '狗', '猪'
+];
+
 // 运势等级
 const fortuneLevels = ['大吉', '中吉', '小吉', '平', '小凶', '大凶'];
 
@@ -22,15 +29,6 @@ const goodActions = ['祭祀', '祈福', '求嗣', '开光', '塑绘', '出行',
 // 忌
 const badActions = ['动土', '破土', '安葬', '开市', '交易', '立券', '栽种', '伐木', '纳畜', '牧养', '祈雨', '潜水'];
 
-// 五行对应的运势描述
-const wuxingFortunes = {
-  '金': { level: '中吉', keywords: ['财运上升', '贵人相助', '事业稳定'] },
-  '木': { level: '小吉', keywords: ['创意丰富', '人际和谐', '健康平稳'] },
-  '水': { level: '大吉', keywords: ['智慧大开', '贵人运佳', '诸事顺遂'] },
-  '火': { level: '平', keywords: ['热情高涨', '注意人际', '适合理财'] },
-  '土': { level: '小吉', keywords: ['脚踏实地', '财运平稳', '健康如意'] }
-};
-
 // 固定运势点评
 const fortuneComments = [
   '今天适合静心思考，可能会收获意想不到的惊喜。',
@@ -42,15 +40,15 @@ const fortuneComments = [
 
 /**
  * 生成每日运势
- * @param {string} type - 'zodiac' 或 'bazi'
- * @param {string|object} data - 星座名称或八字数据
+ * @param {string} type - 'zodiac' 或 'shengxiao'
+ * @param {string|object} data - 星座名称或生肖名称
  */
 function getDailyFortune(type, data) {
   const today = new Date();
   const dateStr = `${today.getFullYear()}${today.getMonth()}${today.getDate()}`;
 
   // 根据日期生成伪随机但固定的结果
-  const seed = parseInt(dateStr) + (type === 'zodiac' ? zodiacSigns.indexOf(data) : 0);
+  const seed = parseInt(dateStr) + (type === 'zodiac' ? zodiacSigns.indexOf(data) : shengxiaoList.indexOf(data));
 
   const levelIndex = seed % fortuneLevels.length;
   const colorIndex = (seed * 2) % luckyColors.length;
@@ -59,43 +57,19 @@ function getDailyFortune(type, data) {
   const badIndex = (seed * 5) % badActions.length;
   const commentIndex = seed % fortuneComments.length;
 
-  let level, keywords, comment;
-
-  if (type === 'bazi' && data && data.dayGan) {
-    // 八字日干对应的五行
-    const dayGan = data.dayGan;
-    const wuxingMap = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
-    const wuxing = wuxingMap[dayGan] || '土';
-    const wuxingInfo = wuxingFortunes[wuxing];
-    level = wuxingInfo.level;
-    keywords = wuxingInfo.keywords;
-  } else {
-    level = fortuneLevels[levelIndex];
-    keywords = [];
-  }
-
   return {
-    level,
+    level: fortuneLevels[levelIndex],
     levelIndex: levelIndex,
     luckyColor: luckyColors[colorIndex],
     luckyNumber: luckyNumbers[numberIndex],
     good: goodActions[goodIndex],
     bad: badActions[badIndex],
-    comment: fortuneComments[commentIndex],
-    keywords
+    comment: fortuneComments[commentIndex]
   };
-}
-
-/**
- * 获取八字日干对应的五行
- */
-function getBaziWuxing(dayGan) {
-  const wuxingMap = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
-  return wuxingMap[dayGan] || '土';
 }
 
 module.exports = {
   zodiacSigns,
-  getDailyFortune,
-  getBaziWuxing
+  shengxiaoList,
+  getDailyFortune
 };

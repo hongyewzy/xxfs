@@ -41,8 +41,11 @@
               <text class="card-symbol">✦</text>
             </view>
             <view class="tarot-card-front">
-              <text class="card-name">{{item.name}}</text>
-              <text class="card-position">{{item.isReversed ? '逆位' : '正位'}}</text>
+              <image class="card-image" src="{{item.image}}" mode="aspectFill" wx:if="{{item.image}}"></image>
+              <view class="card-info">
+                <text class="card-name">{{item.name}}</text>
+                <text class="card-position {{item.isReversed ? 'reversed' : 'upright'}}">{{item.isReversed ? '逆位' : '正位'}}</text>
+              </view>
             </view>
           </view>
           <text class="card-label" wx:if="{{currentSpread === 3}}">{{item.label}}</text>
