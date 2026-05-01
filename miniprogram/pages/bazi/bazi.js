@@ -141,8 +141,13 @@ Page({
       this.saveHistory(result, aiResult)
 
     } catch (err) {
-      wx.showToast({ title: '分析失败', icon: 'error' })
-      console.error(err)
+      wx.showToast({ title: err.message || '分析失败', icon: 'error', duration: 3000 })
+      console.error('八字解析错误:', err)
+      wx.showModal({
+        title: '解析失败',
+        content: err.message || '未知错误',
+        showCancel: false
+      })
     } finally {
       this.setData({ loading: false })
     }
