@@ -170,7 +170,7 @@ Page({
       const prompt = `请分析名字"${name}"的寓意和五格：
 天格：${analysis.wuge.tianGe.num} 人格：${analysis.wuge.renGe.num} 地格：${analysis.wuge.diGe.num}
 总格：${analysis.wuge.zongGe.num} 三才：${analysis.sancai.config}
-请从寓意、音韵、字形等方面分析这个名字。`
+请从寓意、音韵、字形等方面分析这个名字的文化内涵。`
 
       const result = await aiApi.chat(prompt, 'naming')
       const parsedResult = markdown.parseMarkdown(result)
@@ -195,7 +195,7 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keywords: ['八字', '五行', '八字分析', '命理'], title: '八字分析', tags: [{ type: 'general', name: '综合' }] },
+      { keywords: ['八字', '五行', '八字分析', '命理'], title: '文化分析', tags: [{ type: 'general', name: '综合' }] },
       { keywords: ['推荐', '名字', '推荐名字', '候选'], title: '推荐名字', tags: [{ type: 'general', name: '综合' }] },
       { keywords: ['解析', '含义', '名字解析', '寓意'], title: '名字解析', tags: [{ type: 'general', name: '综合' }] }
     ]
@@ -253,7 +253,7 @@ Page({
           title: config.title,
           tags: config.tags,
           subtitle: this.data.selectedName,
-          status: { text: '名字分析', color: '#4CAF50' },
+          status: { text: '文化分析', color: '#4CAF50' },
           content: contentHtml,
           maxLines: 3,
           expanded: index === 0
@@ -277,7 +277,7 @@ Page({
             title: title || `解读 ${index + 1}`,
             tags: [{ type: 'general', name: '综合' }],
             subtitle: this.data.selectedName,
-            status: { text: '名字分析', color: '#4CAF50' },
+            status: { text: '文化分析', color: '#4CAF50' },
             content: markdown.parseMarkdown(body),
             maxLines: 3,
             expanded: index === 0
@@ -289,10 +289,10 @@ Page({
     if (cards.length === 0 && aiResult) {
       cards.push({
         id: 'default',
-        title: '名字分析',
+        title: '文化分析',
         tags: [{ type: 'general', name: '综合' }],
         subtitle: this.data.selectedName,
-        status: { text: '名字分析', color: '#4CAF50' },
+        status: { text: '文化分析', color: '#4CAF50' },
         content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
         expanded: true

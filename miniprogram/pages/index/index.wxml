@@ -4,8 +4,8 @@
   <!-- 顶部标题 -->
   <view class="header">
     <view class="logo-container">
-      <text class="logo-text">天机算算</text>
-      <text class="logo-subtitle">洞悉天机 · 把握命运</text>
+      <text class="logo-text">天机阁</text>
+      <text class="logo-subtitle">中华传统文化 · 古今智慧传承</text>
     </view>
   </view>
 
@@ -13,7 +13,7 @@
   <view class="style-card gold">
     <view class="style-card-content">
       <view class="fortune-header">
-        <text class="style-card-title">今日运势</text>
+        <text class="style-card-title">今日参考</text>
         <view class="fortune-switch">
           <view class="switch-item {{fortuneType === 'zodiac' ? 'active' : ''}}" bindtap="switchFortuneType" data-type="zodiac">星座</view>
           <view class="switch-item {{fortuneType === 'shengxiao' ? 'active' : ''}}" bindtap="switchFortuneType" data-type="shengxiao">生肖</view>
@@ -64,31 +64,31 @@
 
   <!-- 功能入口 -->
   <view class="section">
-    <view class="section-title">占卜测算</view>
+    <view class="section-title">传统文化</view>
     <view class="function-grid">
       <view class="function-item" bindtap="navigateTo" data-url="/pages/bazi/bazi">
-        <view class="icon bazi-icon">命</view>
-        <text class="name">八字命理</text>
+        <view class="icon bazi-icon">柱</view>
+        <text class="name">四柱文化</text>
       </view>
       <view class="function-item" bindtap="navigateTo" data-url="/packageTarot/pages/tarot/tarot">
-        <view class="icon tarot-icon">塔</view>
-        <text class="name">塔罗占卜</text>
+        <view class="icon tarot-icon">牌</view>
+        <text class="name">塔罗文化</text>
       </view>
       <view class="function-item" bindtap="navigateTo" data-url="/pages/meihua/meihua">
         <view class="icon meihua-icon">卦</view>
-        <text class="name">梅花易数</text>
+        <text class="name">易学文化</text>
       </view>
       <view class="function-item" bindtap="navigateTo" data-url="/pages/dream/dream">
-        <view class="icon dream-icon">梦</view>
-        <text class="name">周公解梦</text>
+        <view class="icon dream-icon">析</view>
+        <text class="name">梦境解析</text>
       </view>
       <view class="function-item" bindtap="navigateTo" data-url="/pages/name/name">
         <view class="icon name-icon">名</view>
-        <text class="name">姓名五格</text>
+        <text class="name">姓名文化</text>
       </view>
       <view class="function-item" bindtap="navigateTo" data-url="/pages/naming/naming">
-        <view class="icon naming-icon">字</view>
-        <text class="name">起名取名</text>
+        <view class="icon naming-icon">取</view>
+        <text class="name">取名参考</text>
       </view>
       <view class="function-item" bindtap="navigateTo" data-url="/pages/lunar/lunar">
         <view class="icon lunar-icon">历</view>
@@ -103,6 +103,6 @@
 
   <!-- 底部说明 -->
   <view class="footer">
-    <text class="footer-text">仅供娱乐参考，请勿迷信</text>
+    <text class="footer-text">传统文化学习工具，仅供文化研究参考</text>
   </view>
 </view>

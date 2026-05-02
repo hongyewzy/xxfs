@@ -75,7 +75,7 @@ Page({
       this.saveHistory(result, aiResult)
 
     } catch (err) {
-      wx.showToast({ title: '起卦失败', icon: 'error' })
+      wx.showToast({ title: '分析失败', icon: 'error' })
       console.error(err)
     } finally {
       this.setData({ loading: false })
@@ -88,7 +88,7 @@ Page({
 变卦：${result.changedGua.name}
 动爻：第${result.dongYao}爻
 
-请分析此卦象的吉凶和发展趋势，给出建议。`
+请分析此卦象的含义和发展趋势，给出建议。`
   },
 
   saveHistory(result, aiResult) {
@@ -167,7 +167,7 @@ Page({
           title: config.title,
           tags: config.tags,
           subtitle: this.data.result ? `${this.data.result.originalGua.name} → ${this.data.result.changedGua.name}` : '',
-          status: { text: '卦象解读', color: '#B8962E' },
+          status: { text: '文化解读', color: '#B8962E' },
           content: contentHtml,
           maxLines: 3,
           expanded: index === 0
@@ -191,7 +191,7 @@ Page({
             title: title || `解读 ${index + 1}`,
             tags: [{ type: 'general', name: '综合' }],
             subtitle: this.data.result ? `${this.data.result.originalGua.name} → ${this.data.result.changedGua.name}` : '',
-            status: { text: '卦象解读', color: '#B8962E' },
+            status: { text: '文化解读', color: '#B8962E' },
             content: markdown.parseMarkdown(body),
             maxLines: 3,
             expanded: index === 0
@@ -206,7 +206,7 @@ Page({
         title: '卦象解读',
         tags: [{ type: 'general', name: '综合' }],
         subtitle: this.data.result ? `${this.data.result.originalGua.name} → ${this.data.result.changedGua.name}` : '',
-        status: { text: '卦象解读', color: '#B8962E' },
+        status: { text: '文化解读', color: '#B8962E' },
         content: markdown.parseMarkdown(aiResult),
         maxLines: 3,
         expanded: true

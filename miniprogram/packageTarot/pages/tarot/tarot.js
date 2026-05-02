@@ -72,7 +72,7 @@ Page({
       return `${card.name}（${card.isReversed ? '逆位' : '正位'}）`
     }).join('、')
 
-    let prompt = `问题：${this.data.question || '综合运势'}\n`
+    let prompt = `问题：${this.data.question || '综合分析'}\n`
     prompt += `抽到的牌：${cardInfo}\n`
 
     if (this.data.currentSpread === 3) {
@@ -87,7 +87,7 @@ Page({
     const app = getApp()
     app.saveHistory({
       type: 'tarot',
-      title: this.data.question || '塔罗占卜',
+      title: this.data.question || '塔罗文化',
       result: this.data.aiResult,
       data: { cards: this.data.drawnCards, question: this.data.question },
       time: Date.now()
@@ -191,7 +191,7 @@ Page({
     if (cards.length === 0 && aiResult) {
       cards.push({
         id: 'default',
-        title: '塔罗解读',
+        title: '文化解读',
         tags: [{ type: 'general', name: '综合' }],
         subtitle: this.data.drawnCards ? this.data.drawnCards.map(c => c.name).join('、') : '',
         status: { text: '详细解读', color: '#9C27B0' },

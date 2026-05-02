@@ -1,7 +1,7 @@
 <!--pages/tarot/tarot.wxml-->
 <star-sky />
 <view class="container">
-  <view class="section-title">塔罗占卜</view>
+  <view class="section-title">塔罗文化</view>
 
   <!-- 问题输入 -->
   <view class="card">
@@ -25,7 +25,7 @@
   </view>
 
   <!-- 抽牌按钮 -->
-  <loading-progress show="{{loading}}" text="正在解读塔罗牌面..." icon="🔮" />
+  <loading-progress show="{{loading}}" text="正在分析塔罗牌面..." icon="🔮" />
   <button class="btn-primary mt-30" bindtap="drawCards" disabled="{{loading || drawn}}">
     {{drawn ? '已抽牌' : '开始抽牌'}}
   </button>
@@ -56,7 +56,7 @@
 
   <!-- AI 解读结果 - 折叠卡片形式 -->
   <view class="fortune-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
-    <view class="fortune-section-title">塔罗解读</view>
+    <view class="fortune-section-title">文化解读</view>
     <fortune-card
       wx:for="{{analysisCards}}"
       wx:key="id"

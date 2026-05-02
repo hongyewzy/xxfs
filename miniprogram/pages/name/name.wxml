@@ -1,14 +1,14 @@
 <!--pages/name/name.wxml-->
 <star-sky />
 <view class="container">
-  <view class="section-title">姓名五格</view>
+  <view class="section-title">姓名文化</view>
 
   <view class="card">
     <view class="card-title">输入姓名</view>
     <input class="input-field" placeholder="请输入姓名" value="{{name}}" bindinput="onNameInput" maxlength="10" />
   </view>
 
-  <loading-progress show="{{loading}}" text="正在分析姓名五格..." icon="🔤" />
+  <loading-progress show="{{loading}}" text="正在分析姓名文化..." icon="🔤" />
   <button class="btn-primary mt-30" bindtap="analyze" disabled="{{loading || !name}}">
     {{loading ? '分析中...' : '开始分析'}}
   </button>
@@ -56,7 +56,7 @@
 
     <!-- AI 分析结果 - 折叠卡片形式 -->
     <view class="fortune-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
-      <view class="fortune-section-title">姓名分析</view>
+      <view class="fortune-section-title">文化分析</view>
       <fortune-card
         wx:for="{{analysisCards}}"
         wx:key="id"

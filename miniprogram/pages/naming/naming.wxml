@@ -1,7 +1,7 @@
 <!--pages/naming/naming.wxml-->
 <star-sky />
 <view class="container">
-  <view class="section-title">起名取名</view>
+  <view class="section-title">取名参考</view>
 
   <view class="card">
     <view class="card-title">姓氏</view>
@@ -16,9 +16,9 @@
     </view>
   </view>
 
-  <loading-progress show="{{loading}}" text="正在推算吉祥好名..." icon="💡" />
+  <loading-progress show="{{loading}}" text="正在生成推荐名字..." icon="💡" />
   <button class="btn-primary mt-30" bindtap="generate" disabled="{{loading || !surname}}">
-    {{loading ? '推算中...' : '开始推算'}}
+    {{loading ? '生成中...' : '开始生成'}}
   </button>
 
   <view class="card" wx:if="{{suggestions.length > 0}}">
@@ -41,7 +41,7 @@
 
   <!-- 名字分析结果 - 折叠卡片形式 -->
   <view class="fortune-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
-    <view class="fortune-section-title">起名分析</view>
+    <view class="fortune-section-title">名字分析</view>
     <fortune-card
       wx:for="{{analysisCards}}"
       wx:key="id"

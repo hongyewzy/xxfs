@@ -142,7 +142,7 @@ Page({
     if (cards.length === 0 && aiResult) {
       cards.push({
         id: 'default',
-        title: '梦境解析',
+        title: '文化解析',
         tags: [{ type: 'general', name: '综合' }],
         subtitle: this.data.dreamContent.slice(0, 20) + '...',
         status: { text: '立即查看', color: '#00BCD4' },

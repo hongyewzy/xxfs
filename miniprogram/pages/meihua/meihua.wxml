@@ -1,11 +1,11 @@
 <!--pages/meihua/meihua.wxml-->
 <star-sky />
 <view class="container">
-  <view class="section-title">梅花易数</view>
+  <view class="section-title">易学文化</view>
 
   <!-- 起卦方式 -->
   <view class="card">
-    <view class="card-title">起卦方式</view>
+    <view class="card-title">分析方式</view>
     <view class="method-list flex">
       <view class="method-item {{mode === 'time' ? 'active' : ''}}" bindtap="switchMode" data-mode="time">时间起卦</view>
       <view class="method-item {{mode === 'number' ? 'active' : ''}}" bindtap="switchMode" data-mode="number">数字起卦</view>
@@ -32,9 +32,9 @@
     </view>
   </view>
 
-  <loading-progress show="{{loading}}" text="正在推演卦象变化..." icon="☯" />
+  <loading-progress show="{{loading}}" text="正在分析卦象信息..." icon="☯" />
   <button class="btn-primary mt-30" bindtap="divinate" disabled="{{loading}}">
-    {{loading ? '起卦中...' : '起卦'}}
+    {{loading ? '分析中...' : '开始分析'}}
   </button>
 
   <!-- 卦象结果 -->
@@ -68,7 +68,7 @@
 
     <!-- AI 解读结果 - 折叠卡片形式 -->
     <view class="fortune-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
-      <view class="fortune-section-title">梅花解读</view>
+      <view class="fortune-section-title">文化解读</view>
       <fortune-card
         wx:for="{{analysisCards}}"
         wx:key="id"
@@ -76,6 +76,6 @@
       />
     </view>
 
-    <button class="btn-secondary mt-30" bindtap="reset">重新起卦</button>
+    <button class="btn-secondary mt-30" bindtap="reset">重新分析</button>
   </view>
 </view>

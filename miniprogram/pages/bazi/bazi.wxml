@@ -1,7 +1,7 @@
 <!--pages/bazi/bazi.wxml-->
 <star-sky />
 <view class="container">
-  <view class="section-title">八字命理</view>
+  <view class="section-title">四柱文化</view>
 
   <!-- 日期输入 -->
   <view class="card">
@@ -60,7 +60,7 @@
   </view>
 
   <!-- 开始分析按钮 -->
-  <loading-progress show="{{loading}}" text="正在推算八字命盘..." icon="☯" />
+  <loading-progress show="{{loading}}" text="正在分析四柱信息..." icon="☯" />
   <button class="btn-primary mt-30" bindtap="analyze" disabled="{{loading}}">
     {{loading ? '分析中...' : '开始分析'}}
   </button>
@@ -123,7 +123,7 @@
         </view>
         <view class="explain-item">
           <text class="explain-label">时柱</text>
-          <text class="explain-desc">代表子女、晚年运势（60岁后）</text>
+          <text class="explain-desc">代表子女、晚年阶段（60岁后）</text>
         </view>
       </view>
     </view>
@@ -155,9 +155,9 @@
       </view>
     </view>
 
-    <!-- 运势解读卡片 -->
+    <!-- 文化解读卡片 -->
     <view class="fortune-cards" wx:if="{{analysisCards && analysisCards.length > 0}}">
-      <view class="fortune-section-title">八字解读</view>
+      <view class="fortune-section-title">文化解读</view>
       <fortune-card
         wx:for="{{analysisCards}}"
         wx:key="id"

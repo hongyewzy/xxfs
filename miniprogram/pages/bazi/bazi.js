@@ -142,7 +142,7 @@ Page({
 
     } catch (err) {
       wx.showToast({ title: err.message || '分析失败', icon: 'error', duration: 3000 })
-      console.error('八字解析错误:', err)
+      console.error('四柱分析错误:', err)
       wx.showModal({
         title: '解析失败',
         content: err.message || '未知错误',
@@ -154,13 +154,13 @@ Page({
   },
 
   buildPrompt(result) {
-    return `请根据以下八字信息进行详细解读：
+    return `请根据以下四柱信息进行详细解读：
 年柱：${result.yearGan}${result.yearZhi}
 月柱：${result.monthGan}${result.monthZhi}
 日柱：${result.dayGan}${result.dayZhi}
 时柱：${result.hourGan}${result.hourZhi}
 五行配置：${result.wuxingList.map(w => `${w.name}${w.count}`).join('、')}
-请从性格特质、事业运势、感情婚姻、健康注意等方面进行分析，给出专业的命理解读。`
+请从性格特质、事业发展、感情婚姻、健康注意等方面进行分析，给出专业的文化解读。`
   },
 
   saveHistory(result, aiResult) {
@@ -187,12 +187,12 @@ Page({
   parseToCards(aiResult) {
     const cards = []
     const cardConfigs = [
-      { keywords: ['五行', '命格', '格局', '五行配置'], title: '五行命格', tags: [{ type: 'general', name: '综合' }] },
+      { keywords: ['五行', '命格', '格局', '五行配置'], title: '五行文化', tags: [{ type: 'general', name: '综合' }] },
       { keywords: ['性格', '个性', '特质', '性格特点'], title: '性格特点', tags: [{ type: 'mind', name: '性格' }, { type: 'emotion', name: '情绪' }] },
-      { keywords: ['事业', '工作', '财运', '财富', '事业运势'], title: '事业财运', tags: [{ type: 'career', name: '事业' }, { type: 'wealth', name: '财运' }] },
+      { keywords: ['事业', '工作', '财运', '财富', '事业运势'], title: '事业财富', tags: [{ type: 'career', name: '事业' }, { type: 'wealth', name: '财富' }] },
       { keywords: ['感情', '婚姻', '爱情', '姻缘', '感情婚姻'], title: '感情婚姻', tags: [{ type: 'love', name: '爱情' }, { type: 'social', name: '人际' }] },
-      { keywords: ['健康', '身体', '疾病', '健康注意'], title: '健康运势', tags: [{ type: 'health', name: '健康' }] },
-      { keywords: ['贵人', '人际', '贵人运', '人际关系'], title: '贵人运势', tags: [{ type: 'social', name: '人际' }] },
+      { keywords: ['健康', '身体', '疾病', '健康注意'], title: '健康参考', tags: [{ type: 'health', name: '健康' }] },
+      { keywords: ['贵人', '人际', '贵人运', '人际关系'], title: '人际关系', tags: [{ type: 'social', name: '人际' }] },
       { keywords: ['建议', '指引', '注意', '人生建议', '综合建议'], title: '人生建议', tags: [{ type: 'general', name: '综合' }] }
     ]
 
@@ -291,7 +291,7 @@ Page({
     if (cards.length === 0 && aiResult) {
       cards.push({
         id: 'default',
-        title: '八字解读',
+        title: '文化解读',
         tags: [{ type: 'general', name: '综合' }],
         subtitle: '',
         content: markdown.parseMarkdown(aiResult),

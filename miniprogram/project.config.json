@@ -1,5 +1,5 @@
 {
-  "description": "玄学风水小程序",
+  "description": "传统文化学习小程序",
   "packOptions": {
     "ignore": []
   },
@@ -44,7 +44,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.19.4",
   "appid": "touristappid",
-  "projectname": "xuanxue-fengshui",
+  "projectname": "tianji-ge",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",

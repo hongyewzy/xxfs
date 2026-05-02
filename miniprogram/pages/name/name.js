@@ -168,7 +168,7 @@ Page({
     if (cards.length === 0 && aiResult) {
       cards.push({
         id: 'default',
-        title: '姓名分析',
+        title: '文化分析',
         tags: [{ type: 'general', name: '综合' }],
         subtitle: this.data.name,
         status: { text: '详细分析', color: '#2196F3' },

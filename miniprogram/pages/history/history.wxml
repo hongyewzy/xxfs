@@ -4,9 +4,9 @@
   <!-- 筛选 -->
   <view class="filter-bar flex">
     <view class="filter-item {{filterType === 'all' ? 'active' : ''}}" bindtap="filterByType" data-type="all">全部</view>
-    <view class="filter-item {{filterType === 'bazi' ? 'active' : ''}}" bindtap="filterByType" data-type="bazi">八字</view>
+    <view class="filter-item {{filterType === 'bazi' ? 'active' : ''}}" bindtap="filterByType" data-type="bazi">四柱</view>
     <view class="filter-item {{filterType === 'tarot' ? 'active' : ''}}" bindtap="filterByType" data-type="tarot">塔罗</view>
-    <view class="filter-item {{filterType === 'meihua' ? 'active' : ''}}" bindtap="filterByType" data-type="meihua">梅花</view>
+    <view class="filter-item {{filterType === 'meihua' ? 'active' : ''}}" bindtap="filterByType" data-type="meihua">易学</view>
   </view>
 
   <!-- 记录列表 -->
@@ -17,7 +17,7 @@
         <view class="item-time">{{item.dateStr}}</view>
       </view>
       <view class="item-type">
-        <text class="tag">{{item.type === 'bazi' ? '八字' : item.type === 'tarot' ? '塔罗' : item.type === 'meihua' ? '梅花' : item.type === 'dream' ? '解梦' : item.type === 'name' ? '姓名' : '其他'}}</text>
+        <text class="tag">{{item.type === 'bazi' ? '四柱' : item.type === 'tarot' ? '塔罗' : item.type === 'meihua' ? '易学' : item.type === 'dream' ? '梦境' : item.type === 'name' ? '姓名' : '其他'}}</text>
       </view>
       <view class="item-result">{{item.result}}</view>
       <view class="item-actions flex">
